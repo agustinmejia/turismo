@@ -18,6 +18,7 @@ class PermissionsTableSeeder extends Seeder
             'browse_database',
             'browse_media',
             'browse_compass',
+            'browse_limpiar-cache',
         ];
 
         foreach ($keys as $key) {
@@ -28,11 +29,17 @@ class PermissionsTableSeeder extends Seeder
         }
 
         Permission::generateFor('menus');
-
         Permission::generateFor('roles');
-
         Permission::generateFor('users');
-
         Permission::generateFor('settings');
+
+        Permission::generateFor('countries');
+        Permission::generateFor('states');
+        Permission::generateFor('provinces');
+        Permission::generateFor('cities');
+        Permission::generateFor('hotels_groups');
+        Permission::generateFor('hotels_categories');
+        Permission::generateFor('hotels_types');
+        Permission::generateFor('hotels_rooms_types');
     }
 }

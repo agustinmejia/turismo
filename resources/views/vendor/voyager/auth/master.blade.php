@@ -49,7 +49,7 @@
             padding:0 5px;
         }
     </style>
-    
+
     @yield('pre_css')
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 </head>
