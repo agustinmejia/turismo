@@ -44,6 +44,10 @@
                 <span class="signin">{{ __('voyager::generic.login') }}</span>
             </button>
 
+            <div class="col-md-12 text-right">
+                <a href="{{ route('register') }}" class="btn btn-link">Aún no estás registrado?</a>
+            </div>
+
         </form>
 
         <div style="clear:both"></div>

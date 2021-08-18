@@ -16,9 +16,14 @@ class PermissionRoleTableSeeder extends Seeder
     public function run()
     {
         $role = Role::where('name', 'admin')->firstOrFail();
-
         $permissions = Permission::all();
+        $role->permissions()->sync(
+            $permissions->pluck('id')->all()
+        );
 
+        // Roles de propietario
+        $role = Role::where('name', 'owner')->firstOrFail();
+        $permissions = Permission::whereRaw('id = 1')->get();
         $role->permissions()->sync(
             $permissions->pluck('id')->all()
         );

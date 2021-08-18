@@ -18,7 +18,7 @@ class PermissionsTableSeeder extends Seeder
             'browse_database',
             'browse_media',
             'browse_compass',
-            'browse_limpiar-cache',
+            'browse_clear-cache',
         ];
 
         foreach ($keys as $key) {

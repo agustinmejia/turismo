@@ -29,5 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ProvincesTableSeeder::class);
         $this->call(CitiesTableSeeder::class);
         $this->call(HotelsRoomsTypesTableSeeder::class);
+        $this->call(HotelsTypesTableSeeder::class);
+        $this->call(HotelsCategoriesTableSeeder::class);
     }
 }

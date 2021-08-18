@@ -16,10 +16,16 @@ class CreateHotelsDetailsTable extends Migration
         Schema::create('hotels_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('hotel_id')->nullable()->constrained('hotels');
-            $table->date('date')->nullable();
-            $table->integer('entry')->nullable()->default(0);
-            $table->integer('stay_night')->nullable()->default(0);
-            $table->text('observations')->nullable();
+            $table->foreignId('country_id')->nullable()->constrained('countries');
+            $table->string('full_name')->nullable();
+            $table->string('ci')->nullable();
+            $table->integer('room_number')->nullable();
+            $table->integer('age')->nullable();
+            $table->string('marital_status')->nullable();
+            $table->string('job')->nullable();
+            $table->date('start')->nullable();
+            $table->date('finish')->nullable();
+            $table->string('reason')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
