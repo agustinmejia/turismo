@@ -817,25 +817,9 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{"validation":{"rule":"required|max:191"}}',
-                'order' => 2,
-            ),
-            50 => 
-            array (
-                'id' => 53,
-                'data_type_id' => 8,
-                'field' => 'slug',
-                'type' => 'hidden',
-                'display_name' => 'Slug',
-                'required' => 1,
-                'browse' => 0,
-                'read' => 0,
-                'edit' => 1,
-                'add' => 1,
-                'delete' => 1,
-                'details' => '{"slugify":{"origin":"name","forceUpdate":true}}',
                 'order' => 3,
             ),
-            51 => 
+            50 => 
             array (
                 'id' => 54,
                 'data_type_id' => 8,
@@ -849,9 +833,9 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 1,
                 'delete' => 1,
                 'details' => '{}',
-                'order' => 4,
+                'order' => 6,
             ),
-            52 => 
+            51 => 
             array (
                 'id' => 55,
                 'data_type_id' => 8,
@@ -865,9 +849,9 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 5,
+                'order' => 7,
             ),
-            53 => 
+            52 => 
             array (
                 'id' => 56,
                 'data_type_id' => 8,
@@ -881,9 +865,9 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 6,
+                'order' => 8,
             ),
-            54 => 
+            53 => 
             array (
                 'id' => 57,
                 'data_type_id' => 8,
@@ -897,9 +881,9 @@ class DataRowsTableSeeder extends Seeder
                 'add' => 0,
                 'delete' => 0,
                 'details' => '{}',
-                'order' => 7,
+                'order' => 9,
             ),
-            55 => 
+            54 => 
             array (
                 'id' => 58,
                 'data_type_id' => 9,
@@ -915,7 +899,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 1,
             ),
-            56 => 
+            55 => 
             array (
                 'id' => 59,
                 'data_type_id' => 9,
@@ -931,7 +915,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"validation":{"rule":"required|max:191"}}',
                 'order' => 2,
             ),
-            57 => 
+            56 => 
             array (
                 'id' => 60,
                 'data_type_id' => 9,
@@ -947,7 +931,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"slugify":{"origin":"name","forceUpdate":true}}',
                 'order' => 3,
             ),
-            58 => 
+            57 => 
             array (
                 'id' => 61,
                 'data_type_id' => 9,
@@ -963,7 +947,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 4,
             ),
-            59 => 
+            58 => 
             array (
                 'id' => 62,
                 'data_type_id' => 9,
@@ -979,7 +963,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 5,
             ),
-            60 => 
+            59 => 
             array (
                 'id' => 63,
                 'data_type_id' => 9,
@@ -995,7 +979,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 6,
             ),
-            61 => 
+            60 => 
             array (
                 'id' => 64,
                 'data_type_id' => 9,
@@ -1011,7 +995,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 7,
             ),
-            62 => 
+            61 => 
             array (
                 'id' => 65,
                 'data_type_id' => 11,
@@ -1027,7 +1011,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 1,
             ),
-            63 => 
+            62 => 
             array (
                 'id' => 66,
                 'data_type_id' => 11,
@@ -1043,7 +1027,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"validation":{"rule":"required|max:191"}}',
                 'order' => 2,
             ),
-            64 => 
+            63 => 
             array (
                 'id' => 67,
                 'data_type_id' => 11,
@@ -1059,7 +1043,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"slugify":{"origin":"name","forceUpdate":true}}',
                 'order' => 3,
             ),
-            65 => 
+            64 => 
             array (
                 'id' => 68,
                 'data_type_id' => 11,
@@ -1075,7 +1059,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 4,
             ),
-            66 => 
+            65 => 
             array (
                 'id' => 69,
                 'data_type_id' => 11,
@@ -1091,7 +1075,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 5,
             ),
-            67 => 
+            66 => 
             array (
                 'id' => 70,
                 'data_type_id' => 11,
@@ -1107,7 +1091,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 6,
             ),
-            68 => 
+            67 => 
             array (
                 'id' => 71,
                 'data_type_id' => 11,
@@ -1123,7 +1107,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 7,
             ),
-            69 => 
+            68 => 
             array (
                 'id' => 72,
                 'data_type_id' => 12,
@@ -1139,7 +1123,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 1,
             ),
-            70 => 
+            69 => 
             array (
                 'id' => 73,
                 'data_type_id' => 12,
@@ -1155,7 +1139,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 2,
             ),
-            71 => 
+            70 => 
             array (
                 'id' => 74,
                 'data_type_id' => 12,
@@ -1171,7 +1155,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"validation":{"rule":"required|max:191"}}',
                 'order' => 4,
             ),
-            72 => 
+            71 => 
             array (
                 'id' => 75,
                 'data_type_id' => 12,
@@ -1187,7 +1171,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"slugify":{"origin":"name","forceUpdate":true}}',
                 'order' => 5,
             ),
-            73 => 
+            72 => 
             array (
                 'id' => 76,
                 'data_type_id' => 12,
@@ -1203,7 +1187,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 6,
             ),
-            74 => 
+            73 => 
             array (
                 'id' => 77,
                 'data_type_id' => 12,
@@ -1219,7 +1203,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 7,
             ),
-            75 => 
+            74 => 
             array (
                 'id' => 78,
                 'data_type_id' => 12,
@@ -1235,7 +1219,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 8,
             ),
-            76 => 
+            75 => 
             array (
                 'id' => 79,
                 'data_type_id' => 12,
@@ -1251,7 +1235,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"model":"App\\\\Models\\\\State","table":"states","type":"belongsTo","column":"state_id","key":"id","label":"name","pivot_table":"cities","pivot":"0","taggable":"0"}',
                 'order' => 3,
             ),
-            77 => 
+            76 => 
             array (
                 'id' => 80,
                 'data_type_id' => 6,
@@ -1267,7 +1251,7 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{"model":"App\\\\Models\\\\Province","table":"provinces","type":"belongsTo","column":"province_id","key":"id","label":"name","pivot_table":"cities","pivot":"0","taggable":"0"}',
                 'order' => 3,
             ),
-            78 => 
+            77 => 
             array (
                 'id' => 81,
                 'data_type_id' => 6,
@@ -1282,6 +1266,406 @@ class DataRowsTableSeeder extends Seeder
                 'delete' => 1,
                 'details' => '{}',
                 'order' => 2,
+            ),
+            78 => 
+            array (
+                'id' => 82,
+                'data_type_id' => 8,
+                'field' => 'hotels_category_belongsto_hotels_type_relationship',
+                'type' => 'relationship',
+                'display_name' => 'Tipo',
+                'required' => 1,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{"model":"App\\\\Models\\\\HotelsType","table":"hotels_types","type":"belongsTo","column":"hotels_type_id","key":"id","label":"name","pivot_table":"cities","pivot":"0","taggable":"0"}',
+                'order' => 2,
+            ),
+            79 => 
+            array (
+                'id' => 83,
+                'data_type_id' => 8,
+                'field' => 'hotels_type_id',
+                'type' => 'text',
+                'display_name' => 'Hotels Type Id',
+                'required' => 0,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 4,
+            ),
+            80 => 
+            array (
+                'id' => 84,
+                'data_type_id' => 13,
+                'field' => 'id',
+                'type' => 'text',
+                'display_name' => 'Id',
+                'required' => 1,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 0,
+                'add' => 0,
+                'delete' => 0,
+                'details' => '{}',
+                'order' => 1,
+            ),
+            81 => 
+            array (
+                'id' => 85,
+                'data_type_id' => 13,
+                'field' => 'hotels_type_id',
+                'type' => 'text',
+                'display_name' => 'Hotels Type Id',
+                'required' => 0,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 2,
+            ),
+            82 => 
+            array (
+                'id' => 86,
+                'data_type_id' => 13,
+                'field' => 'hotels_category_id',
+                'type' => 'text',
+                'display_name' => 'Hotels Category Id',
+                'required' => 0,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 3,
+            ),
+            83 => 
+            array (
+                'id' => 87,
+                'data_type_id' => 13,
+                'field' => 'hotels_group_id',
+                'type' => 'text',
+                'display_name' => 'Hotels Group Id',
+                'required' => 0,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 4,
+            ),
+            84 => 
+            array (
+                'id' => 88,
+                'data_type_id' => 13,
+                'field' => 'city_id',
+                'type' => 'text',
+                'display_name' => 'City Id',
+                'required' => 0,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 5,
+            ),
+            85 => 
+            array (
+                'id' => 89,
+                'data_type_id' => 13,
+                'field' => 'user_id',
+                'type' => 'text',
+                'display_name' => 'User Id',
+                'required' => 0,
+                'browse' => 0,
+                'read' => 0,
+                'edit' => 0,
+                'add' => 0,
+                'delete' => 0,
+                'details' => '{}',
+                'order' => 10,
+            ),
+            86 => 
+            array (
+                'id' => 90,
+                'data_type_id' => 13,
+                'field' => 'name',
+                'type' => 'text',
+                'display_name' => 'Nombre',
+                'required' => 0,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 11,
+            ),
+            87 => 
+            array (
+                'id' => 91,
+                'data_type_id' => 13,
+                'field' => 'slug',
+                'type' => 'text',
+                'display_name' => 'Slug',
+                'required' => 1,
+                'browse' => 0,
+                'read' => 0,
+                'edit' => 0,
+                'add' => 0,
+                'delete' => 0,
+                'details' => '{}',
+                'order' => 12,
+            ),
+            88 => 
+            array (
+                'id' => 92,
+                'data_type_id' => 13,
+                'field' => 'address',
+                'type' => 'text',
+                'display_name' => 'Address',
+                'required' => 0,
+                'browse' => 0,
+                'read' => 0,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 13,
+            ),
+            89 => 
+            array (
+                'id' => 93,
+                'data_type_id' => 13,
+                'field' => 'phone',
+                'type' => 'text',
+                'display_name' => 'Phone',
+                'required' => 0,
+                'browse' => 0,
+                'read' => 0,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 14,
+            ),
+            90 => 
+            array (
+                'id' => 94,
+                'data_type_id' => 13,
+                'field' => 'fax',
+                'type' => 'text',
+                'display_name' => 'Fax',
+                'required' => 0,
+                'browse' => 0,
+                'read' => 0,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 15,
+            ),
+            91 => 
+            array (
+                'id' => 95,
+                'data_type_id' => 13,
+                'field' => 'email',
+                'type' => 'text',
+                'display_name' => 'Email',
+                'required' => 0,
+                'browse' => 0,
+                'read' => 0,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 16,
+            ),
+            92 => 
+            array (
+                'id' => 96,
+                'data_type_id' => 13,
+                'field' => 'location',
+                'type' => 'text',
+                'display_name' => 'Location',
+                'required' => 0,
+                'browse' => 0,
+                'read' => 0,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 17,
+            ),
+            93 => 
+            array (
+                'id' => 97,
+                'data_type_id' => 13,
+                'field' => 'status',
+                'type' => 'text',
+                'display_name' => 'Status',
+                'required' => 0,
+                'browse' => 0,
+                'read' => 0,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 18,
+            ),
+            94 => 
+            array (
+                'id' => 98,
+                'data_type_id' => 13,
+                'field' => 'created_at',
+                'type' => 'timestamp',
+                'display_name' => 'Creado',
+                'required' => 0,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 0,
+                'add' => 0,
+                'delete' => 0,
+                'details' => '{}',
+                'order' => 21,
+            ),
+            95 => 
+            array (
+                'id' => 99,
+                'data_type_id' => 13,
+                'field' => 'updated_at',
+                'type' => 'timestamp',
+                'display_name' => 'Updated At',
+                'required' => 0,
+                'browse' => 0,
+                'read' => 0,
+                'edit' => 0,
+                'add' => 0,
+                'delete' => 0,
+                'details' => '{}',
+                'order' => 22,
+            ),
+            96 => 
+            array (
+                'id' => 100,
+                'data_type_id' => 13,
+                'field' => 'deleted_at',
+                'type' => 'timestamp',
+                'display_name' => 'Deleted At',
+                'required' => 0,
+                'browse' => 0,
+                'read' => 0,
+                'edit' => 0,
+                'add' => 0,
+                'delete' => 0,
+                'details' => '{}',
+                'order' => 23,
+            ),
+            97 => 
+            array (
+                'id' => 101,
+                'data_type_id' => 13,
+                'field' => 'hotel_belongsto_hotels_type_relationship',
+                'type' => 'relationship',
+                'display_name' => 'Tipo',
+                'required' => 1,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{"model":"App\\\\Models\\\\HotelsType","table":"hotels_types","type":"belongsTo","column":"hotels_type_id","key":"id","label":"name","pivot_table":"cities","pivot":"0","taggable":"0"}',
+                'order' => 6,
+            ),
+            98 => 
+            array (
+                'id' => 102,
+                'data_type_id' => 13,
+                'field' => 'hotel_belongsto_hotels_category_relationship',
+                'type' => 'relationship',
+                'display_name' => 'Categoría',
+                'required' => 1,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{"model":"App\\\\Models\\\\HotelsCategory","table":"hotels_categories","type":"belongsTo","column":"hotels_category_id","key":"id","label":"name","pivot_table":"cities","pivot":"0","taggable":"0"}',
+                'order' => 7,
+            ),
+            99 => 
+            array (
+                'id' => 103,
+                'data_type_id' => 13,
+                'field' => 'hotel_belongsto_hotels_group_relationship',
+                'type' => 'relationship',
+                'display_name' => 'Grupo',
+                'required' => 1,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{"model":"App\\\\Models\\\\HotelsGroup","table":"hotels_groups","type":"belongsTo","column":"hotels_group_id","key":"id","label":"name","pivot_table":"cities","pivot":"0","taggable":"0"}',
+                'order' => 8,
+            ),
+            100 => 
+            array (
+                'id' => 104,
+                'data_type_id' => 13,
+                'field' => 'hotel_belongsto_city_relationship',
+                'type' => 'relationship',
+                'display_name' => 'Ciudad',
+                'required' => 1,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{"model":"App\\\\Models\\\\City","table":"cities","type":"belongsTo","column":"city_id","key":"id","label":"name","pivot_table":"cities","pivot":"0","taggable":"0"}',
+                'order' => 9,
+            ),
+            101 => 
+            array (
+                'id' => 105,
+                'data_type_id' => 13,
+                'field' => 'hotel_belongsto_user_relationship',
+                'type' => 'relationship',
+                'display_name' => 'Usuario',
+                'required' => 0,
+                'browse' => 0,
+                'read' => 0,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{"model":"TCG\\\\Voyager\\\\Models\\\\User","table":"users","type":"belongsTo","column":"user_id","key":"id","label":"name","pivot_table":"cities","pivot":"0","taggable":"0"}',
+                'order' => 20,
+            ),
+            102 => 
+            array (
+                'id' => 106,
+                'data_type_id' => 13,
+                'field' => 'owner',
+                'type' => 'text',
+                'display_name' => 'Propietario',
+                'required' => 0,
+                'browse' => 1,
+                'read' => 1,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 19,
             ),
         ));
         

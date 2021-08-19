@@ -15,8 +15,9 @@ class CreateHotelsCategoriesTable extends Migration
     {
         Schema::create('hotels_categories', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('hotels_type_id')->nullable()->constrained('hotels_types');
             $table->string('name')->nullable();
-            $table->string('slug')->unique();
+            // $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

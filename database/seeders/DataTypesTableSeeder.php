@@ -161,7 +161,7 @@ class DataTypesTableSeeder extends Seeder
                 'server_side' => 0,
                 'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
                 'created_at' => '2021-08-18 00:02:58',
-                'updated_at' => '2021-08-18 00:39:53',
+                'updated_at' => '2021-08-19 09:32:49',
             ),
             8 => 
             array (
@@ -216,6 +216,24 @@ class DataTypesTableSeeder extends Seeder
                 'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
                 'created_at' => '2021-08-18 00:28:37',
                 'updated_at' => '2021-08-18 00:56:30',
+            ),
+            11 => 
+            array (
+                'id' => 13,
+                'name' => 'hotels',
+                'slug' => 'hotels',
+                'display_name_singular' => 'Hotel',
+                'display_name_plural' => 'Hoteles',
+                'icon' => 'voyager-company',
+                'model_name' => 'App\\Models\\Hotel',
+                'policy_name' => NULL,
+                'controller' => NULL,
+                'description' => NULL,
+                'generate_permissions' => 1,
+                'server_side' => 0,
+                'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
+                'created_at' => '2021-08-19 10:41:04',
+                'updated_at' => '2021-08-19 12:18:59',
             ),
         ));
         

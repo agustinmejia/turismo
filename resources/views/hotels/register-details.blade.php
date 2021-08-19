@@ -49,7 +49,7 @@
                     </div>
                     <div class="modal-body">
                         <div class="col-md-12">
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-12">
                                     <label for="full_name">Nombre completo</label>
                                     <input type="text" name="full_name" class="form-control" required>
@@ -112,7 +112,8 @@
                                     <label for="finish">Fecha de salida</label>
                                     <input type="date" name="finish" class="form-control">
                                 </div>
-                            </div>
+                            </div> --}}
+                            @include('partials.form-register-activity')
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -143,7 +144,7 @@
                 // { data: 'action', title: 'Acciones', orderable: false, searchable: false },
             ]
             let id = "{{ $hotel->id }}";
-            customDataTable("{{ url('admin/hotels/register/detail/list') }}/"+id, columns);
+            customDataTable("{{ url('admin/hoteles/register/detail/list') }}/"+id, columns);
         });
 
         function deleteItem(id){

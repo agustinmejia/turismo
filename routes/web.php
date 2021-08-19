@@ -33,12 +33,18 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
+    // Route::get('hotels/{hotel}', [HotelsController::class, 'show']);
+    Route::get('hotels/{hotel}/certificate', [HotelsController::class, 'certificate'])->name('hotels.certificate');
+    Route::post('hotels/{hotel}/certificate/store', [HotelsController::class, 'certificate_store'])->name('hotels.certificate.store');
+    Route::get('hotels/{hotel}/activities', [HotelsController::class, 'activities'])->name('hotels.activities');
 
-    Route::resource('hotels', HotelsController::class);
-    Route::post('hotels/store/register', [HotelsController::class, 'store_register'])->name('hotels.store.register');
-    Route::get('hotels/{name}/registers', [HotelsController::class, 'register_detail'])->name('hotels.register.datail');
-    Route::get('hotels/register/detail/list/{id}', [HotelsController::class, 'register_detail_list']);
-    Route::post('hotels/{name}/registers/store', [HotelsController::class, 'register_detail_store'])->name('hotels.register.datail.store');
+    Route::resource('hoteles', HotelsController::class);
+    Route::post('hoteles/store/register', [HotelsController::class, 'store_register'])->name('hotels.store.register');
+    Route::get('hoteles/{name}/registers', [HotelsController::class, 'register_detail'])->name('hotels.register.datail');
+    Route::get('hoteles/register/detail/list/{id}', [HotelsController::class, 'register_detail_list']);
+    Route::post('hoteles/{name}/registers/store', [HotelsController::class, 'register_detail_store'])->name('hotels.register.datail.store');
+
+    
 });
 
 // Clear cache

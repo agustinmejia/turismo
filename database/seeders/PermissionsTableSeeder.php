@@ -37,6 +37,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::generateFor('states');
         Permission::generateFor('provinces');
         Permission::generateFor('cities');
+        Permission::generateFor('hotels');
         Permission::generateFor('hotels_groups');
         Permission::generateFor('hotels_categories');
         Permission::generateFor('hotels_types');

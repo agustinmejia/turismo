@@ -9,6 +9,7 @@ use DataTables;
 // Models
 use App\Models\Hotel;
 use App\Models\HotelsDetail;
+use App\Models\HotelsCertificate;
 
 class HotelsController extends Controller
 {
@@ -58,7 +59,8 @@ class HotelsController extends Controller
                 'phone' => $request->phone,
                 'fax' => $request->fax,
                 'email' => $request->email,
-                'location' => $request->location
+                'location' => $request->location,
+                'owner' => $request->owner
             ]);
             return redirect()->route($request->redirect ?? 'hotels.index')->with(['message' => 'Hotel registrado exitosamente', 'alert-type' => 'success']);
         } catch (\Throwable $th) {
@@ -75,7 +77,7 @@ class HotelsController extends Controller
      */
     public function show($id)
     {
-        //
+        return 'show';
     }
 
     /**
@@ -110,6 +112,33 @@ class HotelsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function certificate($id){
+        return view('hotels.add-certificates', compact('id'));
+    }
+
+    public function certificate_store($id, Request $request){
+        try {
+            HotelsCertificate::create([
+                'hotel_id' => $id,
+                'type' => $request->type,
+                'code' => $request->code,
+                'expiration' => $request->expiration,
+                // 'file' => $request->,
+                'observations' => $request->observations
+            ]);
+
+            return redirect()->route($request->redirect ?? 'hotels.index')->with(['message' => 'Certificado de hotel registrado exitosamente', 'alert-type' => 'success']);
+        } catch (\Throwable $th) {
+            // dd($th);
+            return redirect()->route($request->redirect ?? 'hotels.index')->with(['message' => 'Ocurrió un error', 'alert-type' => 'error']);
+        }
+    }
+
+    public function activities($id){
+        $slug = Hotel::where('id', $id)->first()->slug;
+        return view('hotels.add-activities', compact('id', 'slug'));
     }
 
     public function register_detail($slug, Request $request){

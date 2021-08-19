@@ -91,7 +91,7 @@
     </div>
 
     {{-- Add hotel modal --}}
-    <form action="{{ route('hotels.store') }}" method="POST">
+    <form action="{{ route('hoteles.store') }}" method="POST">
         @csrf
         <input type="hidden" name="redirect" value="voyager.dashboard">
         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -106,20 +106,17 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="hotels_type_id">Tipo de hotel</label>
-                                <select name="hotels_type_id" class="form-control select2" required>
-                                    {{-- <option value="" disabled selected>Selecciona el tipo de hotel</option> --}}
-                                    @foreach (\App\Models\HotelsType::where('deleted_at', NULL)->get() as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                <select name="hotels_type_id" id="select-hotels_type_id" class="form-control select2" required>
+                                    <option value="" disabled selected>Selecciona el tipo de hotel</option>
+                                    @foreach (\App\Models\HotelsType::with('categories')->where('deleted_at', NULL)->get() as $item)
+                                        <option value="{{ $item->id }}" data-categories="{{ $item->categories }}">{{ $item->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <label for="hotels_category_id">Categoría de hotel</label>
-                                <select name="hotels_category_id" class="form-control select2" required>
-                                    <option value="" disabled selected>Selecciona el tipo de hotel</option>
-                                    @foreach (\App\Models\HotelsCategory::where('deleted_at', NULL)->get() as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
+                                <select name="hotels_category_id" id="select-hotels_category_id" class="form-control" required>
+                                    <option value="" disabled selected>Ninguna</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -220,6 +217,19 @@
             $('.btn-add-register').click(function(){
                 let id = $(this).data('id');
                 $('#form-add-register input[name="id"]').val(id);
+            });
+
+            $('#select-hotels_type_id').change(function(){
+                let categories = $('#select-hotels_type_id option:selected').data('categories');
+                let categories_list = '';
+                if(categories.length){
+                    categories.map(category => {
+                        categories_list += `<option value="${category.id}">${category.name}</option>`;
+                    });
+                }else{
+                    categories_list += `<option value="">Ninguna</option>`;
+                }
+                $('#select-hotels_category_id').html(categories_list);
             });
         });
     </script>
