@@ -48,10 +48,12 @@ class HotelsController extends Controller
     {
         // dd($request);
         $photos = [];
-        foreach ($request->photos as $photo) {
-            $url_photo = $this->save_image($photo, 'hotels');
-            if($url_photo){
-                array_push($photos, $url_photo);
+        if($request->photos){
+            foreach ($request->photos as $photo) {
+                $url_photo = $this->save_image($photo, 'hotels');
+                if($url_photo){
+                    array_push($photos, $url_photo);
+                }
             }
         }
         try{
@@ -182,6 +184,15 @@ class HotelsController extends Controller
         return view('hotels.add-activities', compact('id', 'slug'));
     }
 
+    public function activities_pdf($id, Request $request){
+        $date = $request->date;
+        $hotel = Hotel::with(['details' => function($q)use($date){
+            $q->whereDate('start', $date);
+        }, 'details.country'])->where('id', $id)->first();
+        // dd($hotel);
+        return view('hotels.pdf-activities', compact('hotel'));
+    }
+
     public function register_detail($slug, Request $request){
         $hotel = Hotel::with('type')->where('slug', $slug)->where('user_id', Auth::user()->id)->first();
         if($hotel){
@@ -205,7 +216,7 @@ class HotelsController extends Controller
     }
 
     public function register_detail_store($slug, Request $request){
-        dd($request);
+        // dd($request);
         try {
             $hotel = Hotel::where('slug', $slug)->first();
             HotelsDetail::create([
@@ -215,6 +226,7 @@ class HotelsController extends Controller
                 'ci' => $request->ci,
                 'room_number' => $request->room_number,
                 'age' => $request->age,
+                'gender' => $request->gender,
                 'marital_status' => $request->marital_status,
                 'job' => $request->job,
                 'start' => $request->start,
@@ -223,7 +235,7 @@ class HotelsController extends Controller
             ]);
             return redirect()->route($request->redirect, ['name' => $slug])->with(['message' => 'Hotel registrado exitosamente', 'alert-type' => 'success']);
         } catch (\Throwable $th) {
-            // dd($th);
+            dd($th);
             return redirect()->route($request->redirect, ['name' => $slug])->with(['message' => 'Ocurrió un error', 'alert-type' => 'error']);
         }
     }

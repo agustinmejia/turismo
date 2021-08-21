@@ -44,4 +44,8 @@ class Hotel extends Model
     public function certificates(){
         return $this->hasMany(HotelsCertificate::class);
     }
+
+    public function details(){
+        return $this->hasMany(HotelsDetail::class);
+    }
 }

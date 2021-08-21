@@ -21,6 +21,7 @@ class CreateHotelsDetailsTable extends Migration
             $table->string('ci')->nullable();
             $table->integer('room_number')->nullable();
             $table->integer('age')->nullable();
+            $table->string('gender')->nullable();
             $table->string('marital_status')->nullable();
             $table->string('job')->nullable();
             $table->date('start')->nullable();

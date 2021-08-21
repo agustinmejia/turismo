@@ -12,7 +12,7 @@ class HotelsDetail extends Model
     protected $dates = ['deleted_at'];
 
     protected $fillable = [
-        'hotel_id', 'country_id', 'full_name', 'ci', 'room_number', 'age', 'marital_status', 'job', 'start', 'finish', 'reason'
+        'hotel_id', 'country_id', 'full_name', 'ci', 'room_number', 'age', 'gender', 'marital_status', 'job', 'start', 'finish', 'reason'
     ];
 
     public function country(){

@@ -7,10 +7,17 @@
 @section('page_title', 'Añadir huesped')
 
 @section('page_header')
-    <h1 class="page-title">
-        <i class="voyager-list"></i>
-        Añadir huesped
-    </h1>
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="page-title">
+                <i class="voyager-list"></i>
+                Añadir huesped
+            </h1>
+        </div>
+        <div class="col-md-6 text-right" style="margin-top: 30px">
+            {{-- <button data-toggle="modal" data-target="#generate_report-modal" class="btn btn-success"><i class="voyager-list"></i> Generar informe</button> --}}
+        </div>
+    </div>
 @stop
 
 @section('content')
@@ -22,32 +29,6 @@
                 <div class="col-md-12">
                     <div class="panel panel-bordered">
                         <div class="panel-body">
-                            {{-- <div class="row">
-                                <div class="col-md-6">
-                                    <label for="type">Tipo</label>
-                                    <select name="type" class="form-control select2" required>
-                                        <option value="">-- Tipo de documento --</option>
-                                        <option value="Código departamental">Código departamental</option>
-                                        <option value="SIRETUR">SIRETUR</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="code">Número de documento</label>
-                                    <input type="text" name="code" class="form-control" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="expiration">Fecha de expiración</label>
-                                    <input type="date" name="expiration" class="form-control" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="file">Archivo</label>
-                                    <input type="file" name="file" class="form-control" accept="application/pdf">
-                                </div>
-                                <div class="col-md-12">
-                                    <label for="observations">Observaciones</label>
-                                    <textarea name="observations" class="form-control" rows="3"></textarea>
-                                </div>
-                            </div> --}}
                             @include('partials.form-register-activity')
                         </div>
                         <div class="panel-footer text-right">
@@ -58,6 +39,30 @@
             </form>
         </div>
     </div>
+
+    <form action="{{ route('hotels.activities.pdf', ['hotel' => $id]) }}" method="POST" target="_blank">
+        <div class="modal modal-success fade" tabindex="-1" id="generate_report-modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><i class="voyager-trash"></i> Desea eliminar el siguiente registro?</h4>
+                    </div>
+                    <div class="modal-body">
+                        @csrf
+                        <div class="form-group">
+                            <label for="date">Fecha</label>
+                            <input type="date" name="date" class="form-control" value="{{ date('Y-m-d') }}" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <input type="submit" class="btn btn-success" value="Sí, generar">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 @stop
 
 @section('javascript')

@@ -59,7 +59,7 @@
                                 <div class="col-md-6">
                                     <label for="city_id">Ciudad</label>
                                     <select name="city_id" id="select-hotels_city_id" class="form-control select2" required>
-                                        <option value="" disabled selected>Selecciona el tipo de hotel</option>
+                                        <option value="" disabled selected>Selecciona la cuidad</option>
                                         @foreach (\App\Models\City::where('deleted_at', NULL)->get() as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
                                         @endforeach
