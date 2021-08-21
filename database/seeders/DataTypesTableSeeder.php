@@ -222,8 +222,8 @@ class DataTypesTableSeeder extends Seeder
                 'id' => 13,
                 'name' => 'hotels',
                 'slug' => 'hotels',
-                'display_name_singular' => 'Hotel',
-                'display_name_plural' => 'Hoteles',
+                'display_name_singular' => 'Prestador de servicios',
+                'display_name_plural' => 'Prestadores de servicios',
                 'icon' => 'voyager-company',
                 'model_name' => 'App\\Models\\Hotel',
                 'policy_name' => NULL,
@@ -233,7 +233,7 @@ class DataTypesTableSeeder extends Seeder
                 'server_side' => 0,
                 'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
                 'created_at' => '2021-08-19 10:41:04',
-                'updated_at' => '2021-08-19 12:18:59',
+                'updated_at' => '2021-08-21 14:17:31',
             ),
         ));
         

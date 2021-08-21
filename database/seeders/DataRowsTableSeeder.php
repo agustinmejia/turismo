@@ -1667,6 +1667,38 @@ class DataRowsTableSeeder extends Seeder
                 'details' => '{}',
                 'order' => 19,
             ),
+            103 => 
+            array (
+                'id' => 107,
+                'data_type_id' => 13,
+                'field' => 'social',
+                'type' => 'text',
+                'display_name' => 'Redes sociales',
+                'required' => 0,
+                'browse' => 0,
+                'read' => 0,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 15,
+            ),
+            104 => 
+            array (
+                'id' => 108,
+                'data_type_id' => 13,
+                'field' => 'photos',
+                'type' => 'text',
+                'display_name' => 'Photos',
+                'required' => 0,
+                'browse' => 0,
+                'read' => 0,
+                'edit' => 1,
+                'add' => 1,
+                'delete' => 1,
+                'details' => '{}',
+                'order' => 16,
+            ),
         ));
         
         

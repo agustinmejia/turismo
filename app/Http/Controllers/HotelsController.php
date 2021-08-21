@@ -47,6 +47,13 @@ class HotelsController extends Controller
     public function store(Request $request)
     {
         // dd($request);
+        $photos = [];
+        foreach ($request->photos as $photo) {
+            $url_photo = $this->save_image($photo, 'hotels');
+            if($url_photo){
+                array_push($photos, $url_photo);
+            }
+        }
         try{
             Hotel::create([
                 'hotels_type_id' => $request->hotels_type_id,
@@ -60,6 +67,8 @@ class HotelsController extends Controller
                 'fax' => $request->fax,
                 'email' => $request->email,
                 'location' => $request->location,
+                'photos' => json_encode($photos),
+                'social' => $request->social,
                 'owner' => $request->owner
             ]);
             return redirect()->route($request->redirect ?? 'hotels.index')->with(['message' => 'Hotel registrado exitosamente', 'alert-type' => 'success']);
@@ -88,7 +97,7 @@ class HotelsController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -100,7 +109,39 @@ class HotelsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request);
+        $hotel = Hotel::findOrFail($id);
+        $photos = json_decode($hotel->photos);
+        if($request->photos){
+            foreach ($request->photos as $photo) {
+                $url_photo = $this->save_image($photo, 'hotels');
+                if($url_photo){
+                    array_push($photos, $url_photo);
+                }
+            }
+        }
+        try{
+            Hotel::where('id', $id)->update([
+                'hotels_type_id' => $request->hotels_type_id,
+                'hotels_category_id' => $request->hotels_category_id,
+                'hotels_group_id' => $request->hotels_group_id,
+                'city_id' => $request->city_id,
+                'user_id' => $request->user_id,
+                'name' => $request->name,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'fax' => $request->fax,
+                'email' => $request->email,
+                'location' => $request->location,
+                'photos' => json_encode($photos),
+                'social' => $request->social,
+                'owner' => $request->owner
+            ]);
+            return redirect()->route($request->redirect ?? 'hotels.index')->with(['message' => 'Hotel editado exitosamente', 'alert-type' => 'success']);
+        } catch (\Throwable $th) {
+            // dd($th);
+            return redirect()->route($request->redirect ?? 'hotels.index')->with(['message' => 'Ocurrió un error', 'alert-type' => 'error']);
+        }
     }
 
     /**
@@ -164,7 +205,7 @@ class HotelsController extends Controller
     }
 
     public function register_detail_store($slug, Request $request){
-        // dd($request);
+        dd($request);
         try {
             $hotel = Hotel::where('slug', $slug)->first();
             HotelsDetail::create([

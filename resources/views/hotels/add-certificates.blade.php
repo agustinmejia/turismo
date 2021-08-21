@@ -16,7 +16,7 @@
 @section('content')
     <div class="page-content edit-add container-fluid">
         <div class="row">
-            <form action="{{ route('hotels.register.datail.store', ['name' => $slug]) }}" method="POST">
+            <form action="{{ route('hotels.certificate.store', ['hotel' => $id]) }}" method="POST">
                 @csrf
                 <input type="hidden" name="redirect" value="voyager.hotels.index">
                 <div class="col-md-12">

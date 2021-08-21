@@ -2,92 +2,94 @@
 
 @section('content')
     <div class="page-content browse container-fluid">
+        @if (Auth::user()->role_id == 2)
         @include('voyager::alerts')
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-bordered">
-                    <div class="panel-body">
-                        @php
-                            $hotels = \App\Models\Hotel::with(['type', 'category', 'group', 'city'])
-                                        ->where('user_id', Auth::user()->id)->where('deleted_at', NULL)->get();
-                        @endphp
-                        @if (count($hotels) == 0 && Auth::user()->role_id == 2)
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-bordered">
+                        <div class="panel-body">
+                            @php
+                                $hotels = \App\Models\Hotel::with(['type', 'category', 'group', 'city'])
+                                            ->where('user_id', Auth::user()->id)->where('deleted_at', NULL)->get();
+                            @endphp
+                            @if (count($hotels) == 0 && Auth::user()->role_id == 2)
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <h1>Bienvenido al Sistema de Administración de Turismo</h1>
+                                        <button data-toggle="modal" data-target="#add_hotel-modal" class="btn btn-success btn-lg"><i class="voyager-company"></i> Registrar Hotel</button>
+                                    </div>
+                                </div>
+                            @else
                             <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <h1>Bienvenido al Sistema de Administración de Turismo</h1>
-                                    <button data-toggle="modal" data-target="#add_hotel-modal" class="btn btn-success btn-lg"><i class="voyager-company"></i> Registrar Hotel</button>
+                                <div class="col-md-6">
+                                    <h2>Bienvenido, {{ Auth::user()->name }}!</h2>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button data-toggle="modal" data-target="#add_hotel-modal" class="btn btn-success"><i class="voyager-company"></i> Registrar Hotel</button>
+                                </div>
+                                <div class="col-md-12">
+                                    <table id="dataTable" class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>n&deg;</th>
+                                                <th>Nombre</th>
+                                                <th>Tipo</th>
+                                                <th>Categoría</th>
+                                                <th>Ciudad</th>
+                                                <th>Dirección</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php
+                                                $cont = 1;
+                                            @endphp
+                                            @foreach ($hotels as $item)
+                                                <tr>
+                                                    <th>{{ $cont }}</th>
+                                                    <td>{{ $item->name }}</td>
+                                                    <td>{{ $item->type->name }}</td>
+                                                    <td>{{ $item->category->name }}</td>
+                                                    <td>{{ $item->city->name }}</td>
+                                                    <td>{{ $item->address }}</td>
+                                                    @php
+                                                        switch ($item->status) {
+                                                            case 'habilitado':
+                                                                $type = 'success';
+                                                                break;
+                                                            case 'inhabilitado':
+                                                                $type = 'danger';
+                                                                break;
+                                                            case 'pendiente':
+                                                                $type = 'warning';
+                                                                break;
+                                                            default:
+                                                                $type = 'default';
+                                                                break;
+                                                        }
+                                                    @endphp
+                                                    <td><label class="label label-{{ $type }}">{{ $item->status }}</label></td>
+                                                    <td class="no-sort no-click bread-actions text-right">
+                                                        <a href="{{ route('hotels.register.datail', ['name' => $item->slug]) }}" data-id="{{ $item->id }}" title="Agregar registro" class="btn btn-sm btn-dark btn-add-register">
+                                                            <i class="voyager-list"></i> <span class="hidden-xs hidden-sm">Administrar</span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                                @php
+                                                    $cont++;
+                                                @endphp
+                                            @endforeach
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-                        @else
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h2>Bienvenido, {{ Auth::user()->name }}!</h2>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <button data-toggle="modal" data-target="#add_hotel-modal" class="btn btn-success"><i class="voyager-company"></i> Registrar Hotel</button>
-                            </div>
-                            <div class="col-md-12">
-                                <table id="dataTable" class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>n&deg;</th>
-                                            <th>Nombre</th>
-                                            <th>Tipo</th>
-                                            <th>Categoría</th>
-                                            <th>Ciudad</th>
-                                            <th>Dirección</th>
-                                            <th>Estado</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @php
-                                            $cont = 1;
-                                        @endphp
-                                        @foreach ($hotels as $item)
-                                            <tr>
-                                                <th>{{ $cont }}</th>
-                                                <td>{{ $item->name }}</td>
-                                                <td>{{ $item->type->name }}</td>
-                                                <td>{{ $item->category->name }}</td>
-                                                <td>{{ $item->city->name }}</td>
-                                                <td>{{ $item->address }}</td>
-                                                @php
-                                                    switch ($item->status) {
-                                                        case 'habilitado':
-                                                            $type = 'success';
-                                                            break;
-                                                        case 'inhabilitado':
-                                                            $type = 'danger';
-                                                            break;
-                                                        case 'pendiente':
-                                                            $type = 'warning';
-                                                            break;
-                                                        default:
-                                                            $type = 'default';
-                                                            break;
-                                                    }
-                                                @endphp
-                                                <td><label class="label label-{{ $type }}">{{ $item->status }}</label></td>
-                                                <td class="no-sort no-click bread-actions text-right">
-                                                    <a href="{{ route('hotels.register.datail', ['name' => $item->slug]) }}" data-id="{{ $item->id }}" title="Agregar registro" class="btn btn-sm btn-dark btn-add-register">
-                                                        <i class="voyager-list"></i> <span class="hidden-xs hidden-sm">Administrar</span>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            @php
-                                                $cont++;
-                                            @endphp
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                            @endif
                         </div>
-                        @endif
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 
     {{-- Add hotel modal --}}

@@ -359,17 +359,17 @@ class MenuItemsTableSeeder extends Seeder
             array (
                 'id' => 22,
                 'menu_id' => 1,
-                'title' => 'Hoteles',
+                'title' => 'Prestadores de servicios',
                 'url' => '',
                 'target' => '_self',
                 'icon_class' => 'voyager-company',
-                'color' => NULL,
+                'color' => '#000000',
                 'parent_id' => NULL,
                 'order' => 2,
                 'created_at' => '2021-08-19 10:41:04',
-                'updated_at' => '2021-08-19 10:41:23',
+                'updated_at' => '2021-08-21 14:17:55',
                 'route' => 'voyager.hotels.index',
-                'parameters' => NULL,
+                'parameters' => 'null',
             ),
         ));
         

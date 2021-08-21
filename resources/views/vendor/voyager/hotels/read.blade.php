@@ -91,7 +91,7 @@
                                 <h3 class="panel-title">Email</h3>
                             </div>
                             <div class="panel-body" style="padding-top:0;">
-                                <p>{{ $hotel->email }}</p>
+                                <p>{{ $hotel->email ?? 'No definido' }}</p>
                             </div>
                             <hr style="margin:0;">
                         </div>
@@ -119,6 +119,41 @@
                             </div>
                             <div class="panel-body" style="padding-top:0;">
                                 <p>{{ $hotel->address }}</p>
+                            </div>
+                            <hr style="margin:0;">
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel-heading" style="border-bottom:0;">
+                                <h3 class="panel-title">Redes sociales</h3>
+                            </div>
+                            <div class="panel-body" style="padding-top:0;">
+                                <p>{!! $hotel->social !!}</p>
+                            </div>
+                            <hr style="margin:0;">
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel-heading" style="border-bottom:0;">
+                                <h3 class="panel-title">Fotografías</h3>
+                            </div>
+                            <div class="panel-body" style="padding-top:0;">
+                                @php
+                                    $photos = json_decode($hotel->photos);
+                                @endphp
+                                @forelse ($photos as $photo)
+                                    <div class="col-md-2">
+                                        <img src="{{ asset('storage/'.str_replace('.', '-cropped.', $photo)) }}" width="100%">
+                                    </div>
+                                @empty
+                                @endforelse
+                            </div>
+                            <hr style="margin:0;">
+                        </div>
+                        <div class="col-md-12">
+                            <div class="panel-heading" style="border-bottom:0;">
+                                <h3 class="panel-title">Ubicación</h3>
+                            </div>
+                            <div class="panel-body" style="padding-top:0;">
+                                <div id="map"></div>
                             </div>
                             <hr style="margin:0;">
                         </div>
@@ -174,13 +209,34 @@
             </div>
         </div>
     </div>
-
 @stop
 
+@section('css')
+    <style>
+        #map { height: 320px; width: 100%; }
+    </style>
+@endsection
+
 @section('javascript')
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap&libraries=&v=weekly"async></script>
     <script>
-        $(document).ready(function () {
-            
-        });
+        let map;
+        const defaultLocation = { lat: -14.834821, lng: -64.904159 };
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: defaultLocation,
+                zoom: 15,
+            });
+            let location = '{{ $hotel->location }}' ? @json($hotel->location) : '';
+            if(location){
+                location = JSON.parse(location);
+                // The marker, positioned at Uluru
+                const marker = new google.maps.Marker({
+                    position: location,
+                    map: map
+                });
+                map.setCenter(location);
+            }
+        }
     </script>
 @stop

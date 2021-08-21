@@ -28,6 +28,8 @@ class CreateHotelsTable extends Migration
             $table->string('email')->nullable();
             $table->string('location')->nullable();
             $table->string('owner')->nullable();
+            $table->text('social')->nullable();
+            $table->text('photos')->nullable();
             $table->string('status')->nullable()->default('habilitado');
             $table->timestamps();
             $table->softDeletes();

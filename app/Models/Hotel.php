@@ -13,7 +13,7 @@ class Hotel extends Model
     use HasFactory, Sluggable, SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'hotels_type_id', 'hotels_category_id', 'hotels_group_id', 'city_id', 'user_id', 'name', 'slug', 'address', 'phone', 'fax', 'email', 'location', 'status', 'owner'
+        'hotels_type_id', 'hotels_category_id', 'hotels_group_id', 'city_id', 'user_id', 'name', 'slug', 'address', 'phone', 'fax', 'email', 'location', 'photos', 'social', 'status', 'owner'
     ];
 
     public function sluggable(): array
