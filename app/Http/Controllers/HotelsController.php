@@ -189,8 +189,11 @@ class HotelsController extends Controller
         $hotel = Hotel::with(['details' => function($q)use($date){
             $q->whereDate('start', $date);
         }, 'details.country'])->where('id', $id)->first();
-        // dd($hotel);
-        return view('hotels.pdf-activities', compact('hotel'));
+        $view = view('hotels.pdf-activities', compact('hotel', 'date'));
+        //return $view;
+        $pdf = \App::make('dompdf.wrapper');
+        $pdf->loadHTML($view)->setPaper('a4', 'landscape');
+        return $pdf->stream();
     }
 
     public function register_detail($slug, Request $request){

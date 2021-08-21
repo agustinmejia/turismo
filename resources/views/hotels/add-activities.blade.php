@@ -15,7 +15,7 @@
             </h1>
         </div>
         <div class="col-md-6 text-right" style="margin-top: 30px">
-            {{-- <button data-toggle="modal" data-target="#generate_report-modal" class="btn btn-success"><i class="voyager-list"></i> Generar informe</button> --}}
+            <button data-toggle="modal" data-target="#generate_report-modal" class="btn btn-success"><i class="voyager-list"></i> Generar informe</button>
         </div>
     </div>
 @stop
