@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHotelsCertificatesTable extends Migration
+class CreateHotelsDocumentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateHotelsCertificatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('hotels_certificates', function (Blueprint $table) {
+        Schema::create('hotels_documents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('hotel_id')->nullable()->constrained('hotels');
-            $table->string('type')->nullable();
+            $table->foreignId('hotels_documents_type_id')->nullable()->constrained('hotels_documents_types');
             $table->string('code')->nullable();
+            $table->date('start')->nullable();
             $table->date('expiration')->nullable();
             $table->string('file')->nullable();
             $table->text('observations')->nullable();
@@ -33,6 +34,6 @@ class CreateHotelsCertificatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hotels_certificates');
+        Schema::dropIfExists('hotels_documents');
     }
 }

@@ -11,7 +11,7 @@
         <div class="col-md-6">
             <h1 class="page-title">
                 <i class="voyager-list"></i>
-                Añadir huesped
+                Actividades
             </h1>
         </div>
         <div class="col-md-6 text-right" style="margin-top: 30px">

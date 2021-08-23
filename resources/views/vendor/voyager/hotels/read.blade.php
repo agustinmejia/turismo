@@ -19,7 +19,7 @@
                 @php
                     $url = explode('/', $_SERVER['REQUEST_URI']);
                     $id = $url[count($url)-1];
-                    $hotel = \App\Models\Hotel::with('type', 'category', 'group', 'city', 'certificates')->where('id', $id)->first();
+                    $hotel = \App\Models\Hotel::with('type', 'category', 'group', 'city', 'documents.type')->where('id', $id)->first();
                 @endphp
                 <div class="panel panel-bordered" style="padding-bottom:5px;">
                     <div class="row">
@@ -177,6 +177,7 @@
                                             <th>n&deg;</th>
                                             <th>Tipo</th>
                                             <th>Número</th>
+                                            <th>Fecha de inicio</th>
                                             <th>Fecha de expiración</th>
                                             {{-- <th>Archivo</th> --}}
                                         </tr>
@@ -185,11 +186,12 @@
                                         @php
                                             $cont = 1;
                                         @endphp
-                                        @forelse ($hotel->certificates as $item)
+                                        @forelse ($hotel->documents as $item)
                                             <tr>
                                                 <td>{{ $cont }}</td>
-                                                <td>{{ $item->type }}</td>
+                                                <td>{{ $item->type->name }}</td>
                                                 <td>{{ $item->code }}</td>
+                                                <td>{{ date('d/m/Y', strtotime($item->start)) }} <br> <small>{{ \Carbon\Carbon::parse($item->start)->diffForHumans() }}</small> </td>
                                                 <td>{{ date('d/m/Y', strtotime($item->expiration)) }} <br> <small>{{ \Carbon\Carbon::parse($item->expiration)->diffForHumans() }}</small> </td>
                                             </tr>
                                             @php

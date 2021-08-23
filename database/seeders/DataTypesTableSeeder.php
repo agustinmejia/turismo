@@ -235,6 +235,24 @@ class DataTypesTableSeeder extends Seeder
                 'created_at' => '2021-08-19 10:41:04',
                 'updated_at' => '2021-08-21 14:17:31',
             ),
+            12 => 
+            array (
+                'id' => 14,
+                'name' => 'hotels_documents_types',
+                'slug' => 'hotels-documents-types',
+                'display_name_singular' => 'Tipo de documento',
+                'display_name_plural' => 'Tipos de documentos',
+                'icon' => 'voyager-tag',
+                'model_name' => 'App\\Models\\HotelsDocumentsType',
+                'policy_name' => NULL,
+                'controller' => NULL,
+                'description' => NULL,
+                'generate_permissions' => 1,
+                'server_side' => 0,
+                'details' => '{"order_column":null,"order_display_column":null,"order_direction":"asc","default_search_key":null,"scope":null}',
+                'created_at' => '2021-08-23 08:32:36',
+                'updated_at' => '2021-08-23 08:34:01',
+            ),
         ));
         
         

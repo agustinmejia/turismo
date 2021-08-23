@@ -24,11 +24,12 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="type">Tipo</label>
-                                    <select name="type" class="form-control select2" required>
+                                    <label for="hotels_documents_type_id">Tipo</label>
+                                    <select name="hotels_documents_type_id" class="form-control select2" required>
                                         <option value="">-- Tipo de documento --</option>
-                                        <option value="Código departamental">Código departamental</option>
-                                        <option value="SIRETUR">SIRETUR</option>
+                                        @foreach (\App\Models\HotelsDocumentsType::where('deleted_at', NULL)->get() as $item)
+                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-6">
@@ -36,13 +37,17 @@
                                     <input type="text" name="code" class="form-control" required>
                                 </div>
                                 <div class="col-md-6">
+                                    <label for="start">Fecha de inicio</label>
+                                    <input type="date" name="start" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
                                     <label for="expiration">Fecha de expiración</label>
                                     <input type="date" name="expiration" class="form-control" required>
                                 </div>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <label for="file">Archivo</label>
                                     <input type="file" name="file" class="form-control" accept="application/pdf">
-                                </div>
+                                </div> --}}
                                 <div class="col-md-12">
                                     <label for="observations">Observaciones</label>
                                     <textarea name="observations" class="form-control" rows="3"></textarea>

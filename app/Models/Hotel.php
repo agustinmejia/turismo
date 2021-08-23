@@ -41,8 +41,8 @@ class Hotel extends Model
         return $this->belongsTo(City::class, 'city_id');
     }
 
-    public function certificates(){
-        return $this->hasMany(HotelsCertificate::class);
+    public function documents(){
+        return $this->hasMany(HotelsDocument::class);
     }
 
     public function details(){

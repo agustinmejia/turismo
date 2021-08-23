@@ -9,7 +9,7 @@ use DataTables;
 // Models
 use App\Models\Hotel;
 use App\Models\HotelsDetail;
-use App\Models\HotelsCertificate;
+use App\Models\HotelsDocument;
 
 class HotelsController extends Controller
 {
@@ -163,10 +163,11 @@ class HotelsController extends Controller
 
     public function certificate_store($id, Request $request){
         try {
-            HotelsCertificate::create([
+            HotelsDocument::create([
                 'hotel_id' => $id,
-                'type' => $request->type,
+                'hotels_documents_type_id' => $request->hotels_documents_type_id,
                 'code' => $request->code,
+                'start' => $request->start,
                 'expiration' => $request->expiration,
                 // 'file' => $request->,
                 'observations' => $request->observations
@@ -180,7 +181,7 @@ class HotelsController extends Controller
     }
 
     public function activities($id){
-        return view('hotels.add-activities', compact('id'));
+        return view('hotels.activities', compact('id'));
     }
 
     public function activities_pdf($id, Request $request){
