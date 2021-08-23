@@ -4,19 +4,18 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @stop
 
-@section('page_title', 'Añadir huesped')
+@section('page_title', 'Regitro de hospedaje')
 
 @section('page_header')
     <div class="row">
         <div class="col-md-6">
             <h1 class="page-title">
-                <i class="voyager-list"></i>
-                Añadir huesped
+                <i class="voyager-edit"></i>
+                Regitro de hospedajes | {{ $hotel->type->name }} {{ $hotel->name }}
             </h1>
         </div>
         <div class="col-md-6 text-right" style="margin-top: 30px">
-            <button data-toggle="modal" data-target="#add-activity-modal" class="btn btn-success"><i class="voyager-plus"></i> Añadir</button>
-            <button data-toggle="modal" data-target="#generate_report-modal" class="btn btn-danger"><i class="voyager-list"></i> Generar informe</button>
+            <button type="button" data-toggle="modal" data-target="#add-modal" class="btn btn-success"><i class="voyager-plus"></i> Añadir</button>
         </div>
     </div>
 @stop
@@ -40,8 +39,8 @@
     {{-- Add modal --}}
     <form action="{{ route('hotels.register.detail.store', ['id' => $id]) }}" method="POST">
         @csrf
-        <input type="hidden" name="redirect" value="hotels.activities">
-        <div class="modal modal-success fade" id="add-activity-modal" role="dialog">
+        <input type="hidden" name="redirect" value="">
+        <div class="modal modal-success fade" tabindex="-1" id="add-modal" role="dialog">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -56,30 +55,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                         <input type="submit" class="btn btn-success" value="Sí, registrar">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
-
-    <form action="{{ route('hotels.activities.pdf', ['hotel' => $id]) }}" method="POST" target="_blank">
-        <div class="modal modal-danger fade" tabindex="-1" id="generate_report-modal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title"><i class="voyager-trash"></i> Desea eliminar el siguiente registro?</h4>
-                    </div>
-                    <div class="modal-body">
-                        @csrf
-                        <div class="form-group">
-                            <label for="date">Fecha</label>
-                            <input type="date" name="date" class="form-control" value="{{ date('Y-m-d') }}" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                        <input type="submit" class="btn btn-danger" value="Sí, generar">
                     </div>
                 </div>
             </div>
@@ -104,8 +79,14 @@
                 { data: 'finish', title: 'Salida' },
                 // { data: 'action', title: 'Acciones', orderable: false, searchable: false },
             ]
-            let id = "{{ $id }}";
+            let id = "{{ $hotel->id }}";
             customDataTable("{{ url('admin/hoteles/register/detail/list') }}/"+id, columns);
         });
+
+        function deleteItem(id){
+            let url = '{{ url("admin/ventas") }}/'+id;
+            $('#delete_form').attr('action', url);
+        }
+
     </script>
 @stop

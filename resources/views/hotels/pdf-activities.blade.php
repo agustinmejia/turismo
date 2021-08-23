@@ -95,3 +95,9 @@
         </td>
     </tr>
 </table>
+
+<style>
+    th{
+        font-size: 11px
+    }
+</style>

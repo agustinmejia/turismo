@@ -99,7 +99,7 @@ class HotelsController extends Controller
      */
     public function edit($id)
     {
-        
+
     }
 
     /**
@@ -180,8 +180,7 @@ class HotelsController extends Controller
     }
 
     public function activities($id){
-        $slug = Hotel::where('id', $id)->first()->slug;
-        return view('hotels.add-activities', compact('id', 'slug'));
+        return view('hotels.add-activities', compact('id'));
     }
 
     public function activities_pdf($id, Request $request){
@@ -218,10 +217,10 @@ class HotelsController extends Controller
             ->make(true);
     }
 
-    public function register_detail_store($slug, Request $request){
+    public function register_detail_store($id, Request $request){
         // dd($request);
         try {
-            $hotel = Hotel::where('slug', $slug)->first();
+            $hotel = Hotel::findOrFail($id);
             HotelsDetail::create([
                 'hotel_id' => $hotel->id,
                 'country_id' => $request->country_id,
@@ -236,10 +235,10 @@ class HotelsController extends Controller
                 'finish' => $request->finish,
                 'reason' => $request->reason
             ]);
-            return redirect()->route($request->redirect, ['name' => $slug])->with(['message' => 'Hotel registrado exitosamente', 'alert-type' => 'success']);
+            return redirect()->route($request->redirect, ['hotel' => $id])->with(['message' => 'Hotel registrado exitosamente', 'alert-type' => 'success']);
         } catch (\Throwable $th) {
             dd($th);
-            return redirect()->route($request->redirect, ['name' => $slug])->with(['message' => 'Ocurrió un error', 'alert-type' => 'error']);
+            return redirect()->route($request->redirect, ['hotel' => $id])->with(['message' => 'Ocurrió un error', 'alert-type' => 'error']);
         }
     }
 }

@@ -8,7 +8,7 @@ class AddCertificates extends AbstractAction
 {
     public function getTitle()
     {
-        return 'Certificados';
+        return 'Documentos';
     }
 
     public function getIcon()

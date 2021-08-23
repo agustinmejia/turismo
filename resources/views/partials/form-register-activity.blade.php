@@ -9,9 +9,12 @@
     </div>
     <div class="col-md-6">
         <label for="reason">Motivo de viaje</label>
-        <select name="reason" class="form-control" required>
-            <option value="Paseo">Paseo</option>
+        <select name="reason" id="select-reason" class="form-control" required>
+            <option value="Turismo">Turismo</option>
             <option value="Trabajo">Trabajo</option>
+            @foreach (\App\Models\HotelsDetail::where('deleted_at', NULL)->whereRaw('reason != "Turismo" && reason != "Trabajo"')->groupBy('reason')->get() as $item)
+                <option value="{{ $item->reason }}">{{ $item->reason }}</option>
+            @endforeach
         </select>
     </div>
     <div class="col-md-6">
@@ -62,3 +65,36 @@
         <input type="date" name="finish" class="form-control">
     </div>
 </div>
+<style>
+    .select2-container {
+        width: 100% !important;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+        inicializar_select2('reason');
+    });
+
+    function inicializar_select2(id){
+        $(`#select-${id}`).select2({
+            tags: true,
+            createTag: function (params) {
+                return {
+                id: params.term,
+                text: params.term,
+                newOption: true
+                }
+            },
+            templateResult: function (data) {
+                var $result = $("<span></span>");
+                $result.text(data.text);
+                if (data.newOption) {
+                    $result.append(" <em>(ENTER para agregar)</em>");
+                }
+                return $result;
+            },
+        });
+    }
+</script>
