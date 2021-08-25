@@ -36,15 +36,16 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('hotels/{hotel}/activities', [HotelsController::class, 'activities'])->name('hotels.activities');
     Route::post('hotels/{hotel}/activities/pdf', [HotelsController::class, 'activities_pdf'])->name('hotels.activities.pdf');
-    Route::get('hotels/{hotel}/certificate', [HotelsController::class, 'certificate'])->name('hotels.certificate');
-    Route::post('hotels/{hotel}/certificate/store', [HotelsController::class, 'certificate_store'])->name('hotels.certificate.store');
+    Route::get('hotels/{hotel}/documents', [HotelsController::class, 'documents'])->name('hotels.documents');
+    Route::post('hotels/{hotel}/documents/store', [HotelsController::class, 'documents_store'])->name('hotels.documents.store');
+    Route::post('hotels/{hotel}/documents/delete', [HotelsController::class, 'documents_delete'])->name('hotels.documents.delete');
 
     Route::resource('hoteles', HotelsController::class);
     Route::post('hoteles/store/register', [HotelsController::class, 'store_register'])->name('hotels.store.register');
     Route::get('hoteles/{hotel}/registers', [HotelsController::class, 'register_detail'])->name('hotels.register.datail');
     Route::get('hoteles/register/detail/list/{id}', [HotelsController::class, 'register_detail_list']);
     Route::post('hoteles/{id}/registers/store', [HotelsController::class, 'register_detail_store'])->name('hotels.register.detail.store');
-
+    Route::delete('hotels/{id}', [HotelsController::class, 'destroy'])->name('voyager.hotels.destroy');
 
 });
 

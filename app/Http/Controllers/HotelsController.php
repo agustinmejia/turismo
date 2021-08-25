@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use DataTables;
+use Illuminate\Support\Str;
+use Storage;
 
 // Models
 use App\Models\Hotel;
@@ -154,22 +157,42 @@ class HotelsController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
-
-    public function certificate($id){
-        return view('hotels.add-certificates', compact('id'));
-    }
-
-    public function certificate_store($id, Request $request){
         try {
+            $hotel = Hotel::findOrFail($id);
+            $hotel->slug = $id.'-'.$hotel->slug;
+            $hotel->deleted_at = Carbon::now();
+            $hotel->save();
+
+            return redirect()->route('voyager.hotels.index')->with(['message' => 'Registro eliminado exitosamente', 'alert-type' => 'success']);
+        } catch (\Throwable $th) {
+            // dd($th);
+            return redirect()->route('voyager.hotels.index')->with(['message' => 'Ocurrió un error', 'alert-type' => 'error']);
+        }
+    }
+
+    public function documents($id){
+        return view('hotels.add-documents', compact('id'));
+    }
+
+    public function documents_store($id, Request $request){
+        try {
+            $file = $request->file;
+            $url = null;
+            if($file){
+                $newFileName = Str::random(20).'.'.$file->getClientOriginalExtension();
+                $dir = "documents/".date('F').date('Y');
+                Storage::makeDirectory($dir);
+                Storage::disk('public')->put($dir.'/'.$newFileName, file_get_contents($file));
+                $url = $dir.'/'.$newFileName;
+            }
+
             HotelsDocument::create([
                 'hotel_id' => $id,
                 'hotels_documents_type_id' => $request->hotels_documents_type_id,
                 'code' => $request->code,
                 'start' => $request->start,
                 'expiration' => $request->expiration,
-                // 'file' => $request->,
+                'file' =>  $url,
                 'observations' => $request->observations
             ]);
 
@@ -177,6 +200,19 @@ class HotelsController extends Controller
         } catch (\Throwable $th) {
             // dd($th);
             return redirect()->route($request->redirect ?? 'hotels.index')->with(['message' => 'Ocurrió un error', 'alert-type' => 'error']);
+        }
+    }
+
+    public function documents_delete($id, Request $request){
+        try {
+            HotelsDocument::where('id', $request->id)->update([
+                'deleted_at' => Carbon::now()
+            ]);
+
+            return redirect()->route('voyager.hotels.show', ['id' => $id])->with(['message' => 'Documento eliminado exitosamente', 'alert-type' => 'success']);
+        } catch (\Throwable $th) {
+            // dd($th);
+            return redirect()->route('voyager.hotels.show', ['id' => $id])->with(['message' => 'Ocurrió un error', 'alert-type' => 'error']);
         }
     }
 

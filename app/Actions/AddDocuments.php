@@ -4,7 +4,7 @@ namespace App\Actions;
 
 use TCG\Voyager\Actions\AbstractAction;
 
-class AddCertificates extends AbstractAction
+class AddDocuments extends AbstractAction
 {
     public function getTitle()
     {
@@ -24,14 +24,14 @@ class AddCertificates extends AbstractAction
     public function getAttributes()
     {
         return [
-            'class' => 'btn btn-sm btn-success pull-right',
+            'class' => 'btn btn-sm btn-default pull-right',
             'style' => 'margin: 5px'
         ];
     }
 
     public function getDefaultRoute()
     {
-        return route('hotels.certificate', ['hotel' => $this->data->id]);
+        return route('hotels.documents', ['hotel' => $this->data->id]);
     }
 
     public function shouldActionDisplayOnDataType()

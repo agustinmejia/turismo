@@ -179,7 +179,8 @@
                                             <th>Número</th>
                                             <th>Fecha de inicio</th>
                                             <th>Fecha de expiración</th>
-                                            {{-- <th>Archivo</th> --}}
+                                            <th>Archivo</th>
+                                            <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -191,15 +192,29 @@
                                                 <td>{{ $cont }}</td>
                                                 <td>{{ $item->type->name }}</td>
                                                 <td>{{ $item->code }}</td>
-                                                <td>{{ date('d/m/Y', strtotime($item->start)) }} <br> <small>{{ \Carbon\Carbon::parse($item->start)->diffForHumans() }}</small> </td>
-                                                <td>{{ date('d/m/Y', strtotime($item->expiration)) }} <br> <small>{{ \Carbon\Carbon::parse($item->expiration)->diffForHumans() }}</small> </td>
+                                                <td>
+                                                    @if ($item->start)
+                                                        {{ date('d/m/Y', strtotime($item->start)) }} <br> <small>{{ \Carbon\Carbon::parse($item->start)->diffForHumans() }}</small>
+                                                    @else
+                                                        No definida
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($item->expiration)
+                                                        {{ date('d/m/Y', strtotime($item->expiration)) }} <br> <small>{{ \Carbon\Carbon::parse($item->expiration)->diffForHumans() }}</small>
+                                                    @else
+                                                        No definida
+                                                    @endif
+                                                </td>
+                                                <td><a href="{{ url('storage/'.$item->file) }}" target="_blank" >Ver</a></td>
+                                                <td><button type="button" data-toggle="modal" data-target="#delete-document-modal" class="btn btn-danger btn-delete-document" data-id="{{ $item->id }}"><i class="voyager-trash"></i></button></td>
                                             </tr>
                                             @php
                                                 $cont++;
                                             @endphp
                                         @empty
                                             <tr>
-                                                <td colspan="4"><h4 class="text-center">No tiene certificados registrados</h4></td>
+                                                <td colspan="7"><h4 class="text-center">No tiene certificados registrados</h4></td>
                                             </tr>
                                         @endforelse
                                     </tbody>
@@ -211,6 +226,25 @@
             </div>
         </div>
     </div>
+
+    <form action="{{ route('hotels.documents.delete', ['hotel' => $hotel->id]) }}" method="post">
+        <div class="modal modal-danger fade" tabindex="-1" id="delete-document-modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><i class="voyager-trash"></i> Desea eliminar el siguiente registro?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" name="id">
+                        {{ csrf_field() }}
+                        <input type="submit" class="btn btn-danger pull-right delete-confirm" value="Sí, eliminar">
+                        <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 @stop
 
 @section('css')
@@ -222,6 +256,13 @@
 @section('javascript')
     <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&callback=initMap&libraries=&v=weekly"async></script>
     <script>
+        $(document).ready(function(){
+            $('.btn-delete-document').click(function(){
+                let id = $(this).data('id');
+                $('#delete-document-modal input[name="id"]').val(id);
+            });
+        });
+
         let map;
         const defaultLocation = { lat: -14.834821, lng: -64.904159 };
         function initMap() {

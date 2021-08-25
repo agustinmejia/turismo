@@ -4,19 +4,19 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @stop
 
-@section('page_title', 'Añadir certificado')
+@section('page_title', 'Añadir Documento')
 
 @section('page_header')
     <h1 class="page-title">
         <i class="voyager-certificate"></i>
-        Añadir certificado
+        Añadir Documento
     </h1>
 @stop
 
 @section('content')
     <div class="page-content edit-add container-fluid">
         <div class="row">
-            <form action="{{ route('hotels.certificate.store', ['hotel' => $id]) }}" method="POST">
+            <form action="{{ route('hotels.documents.store', ['hotel' => $id]) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="redirect" value="voyager.hotels.index">
                 <div class="col-md-12">
@@ -38,16 +38,16 @@
                                 </div>
                                 <div class="col-md-6">
                                     <label for="start">Fecha de inicio</label>
-                                    <input type="date" name="start" class="form-control" required>
+                                    <input type="date" name="start" class="form-control">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="expiration">Fecha de expiración</label>
-                                    <input type="date" name="expiration" class="form-control" required>
+                                    <input type="date" name="expiration" class="form-control">
                                 </div>
-                                {{-- <div class="col-md-6">
+                                <div class="col-md-12">
                                     <label for="file">Archivo</label>
                                     <input type="file" name="file" class="form-control" accept="application/pdf">
-                                </div> --}}
+                                </div>
                                 <div class="col-md-12">
                                     <label for="observations">Observaciones</label>
                                     <textarea name="observations" class="form-control" rows="3"></textarea>
