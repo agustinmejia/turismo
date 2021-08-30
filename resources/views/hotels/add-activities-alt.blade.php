@@ -41,7 +41,7 @@
         @csrf
         <input type="hidden" name="redirect" value="">
         <div class="modal modal-success fade" tabindex="-1" id="add-modal" role="dialog">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>

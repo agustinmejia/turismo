@@ -23,11 +23,34 @@
     </div>
     <div class="col-md-6">
         <label for="country_id">País de procedencia</label>
-        <select name="country_id" class="form-control select2">
+        <select name="country_id" id="select-country_id" class="form-control select2">
         @foreach (\App\Models\Country::where('deleted_at', NULL)->get() as $item)
             <option value="{{ $item->id }}">{{ $item->name }}</option>
         @endforeach
         </select>
+    </div>
+    <div class="col-md-6 div-nacional">
+        <label for="state_id">Departamento</label>
+        <select name="state_id" id="select-state_id" class="form-control select2">
+            <option value="">--Selecciona el departamento--</option>
+        @foreach (\App\Models\State::with('provinces.cities')->where('deleted_at', NULL)->get() as $item)
+            <option value="{{ $item->id }}" data-provinces="{{ $item->provinces }}">{{ $item->name }}</option>
+        @endforeach
+        </select>
+    </div>
+    <div class="col-md-6 div-nacional">
+        <label for="province_id">Provincia</label>
+        <select name="province_id" id="select-province_id" class="form-control">
+        </select>
+    </div>
+    <div class="col-md-12 div-nacional">
+        <label for="city_id">Ciudad</label>
+        <select name="city_id" id="select-city_id" class="form-control">
+        </select>
+    </div>
+    <div class="col-md-12 div-extranjero">
+        <label for="origin">Procedencia</label>
+        <input type="text" class="form-control" name="origin" placeholder="Lugar de ingreso al país">
     </div>
     <div class="col-md-6">
         <label for="age">Edad</label>
@@ -75,6 +98,56 @@
 <script>
     $(document).ready(function(){
         inicializar_select2('reason');
+
+        var provinces_country = [];
+
+        $('#select-state_id').change(function(){
+            let provinces = $('#select-state_id option:selected').data('provinces');
+            let provinces_list = '<option value="">--Selecciona la privincia--</option>';
+            if(provinces.length){
+                provinces_country = provinces; 
+                provinces.map(province => {
+                    provinces_list += `<option value="${province.id}">${province.name}</option>`;
+                });
+            }else{
+                provinces_list += `<option value="">Ninguna</option>`;
+            }
+            $('#select-province_id').html(provinces_list);
+            inicializar_select2('province_id');
+            $('#select-city_id').html('');
+        });
+
+        $('#select-province_id').change(function(){
+            let id = $('#select-province_id option:selected').val();
+            let cities = [];
+            provinces_country.map(item => {
+                if(id == item.id){
+                    cities = item.cities;
+                }
+            });
+
+            let cities_list = '';
+            if(cities.length){
+                cities.map(city => {
+                    cities_list += `<option value="${city.id}">${city.name}</option>`;
+                });
+            }else{
+                cities_list += `<option value="">Ninguna</option>`;
+            }
+            $('#select-city_id').html(cities_list);
+            inicializar_select2('city_id');
+        });
+
+        $('#select-country_id').change(function(){
+            let id = $('#select-country_id option:selected').val();
+            if(id == 1){
+                $('.div-nacional').fadeIn();
+                $('.div-extranjero').fadeOut();
+            }else{
+                $('.div-nacional').fadeOut();
+                $('.div-extranjero').fadeIn();
+            }
+        });
     });
 
     function inicializar_select2(id){

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use DataTables;
 use Illuminate\Support\Str;
@@ -13,6 +14,7 @@ use Storage;
 use App\Models\Hotel;
 use App\Models\HotelsDetail;
 use App\Models\HotelsDocument;
+use App\Models\HotelsDetailsNacionality;
 
 class HotelsController extends Controller
 {
@@ -217,7 +219,7 @@ class HotelsController extends Controller
     }
 
     public function activities($id){
-        return view('hotels.activities', compact('id'));
+        return view('hotels.add-activities', compact('id'));
     }
 
     public function activities_pdf($id, Request $request){
@@ -256,9 +258,10 @@ class HotelsController extends Controller
 
     public function register_detail_store($id, Request $request){
         // dd($request);
+        DB::beginTransaction();
         try {
             $hotel = Hotel::findOrFail($id);
-            HotelsDetail::create([
+            $detail = HotelsDetail::create([
                 'hotel_id' => $hotel->id,
                 'country_id' => $request->country_id,
                 'full_name' => $request->full_name,
@@ -272,8 +275,19 @@ class HotelsController extends Controller
                 'finish' => $request->finish,
                 'reason' => $request->reason
             ]);
+
+            HotelsDetailsNacionality::create([
+                'hotels_detail_id' => $detail->id,
+                'state_id' => $request->state_id,
+                'province_id' => $request->province_id,
+                'city_id' => $request->city_id,
+                'origin' => $request->origin
+            ]);
+
+            DB::commit();
             return redirect()->route($request->redirect, ['hotel' => $id])->with(['message' => 'Hotel registrado exitosamente', 'alert-type' => 'success']);
         } catch (\Throwable $th) {
+            DB::rollback();
             dd($th);
             return redirect()->route($request->redirect, ['hotel' => $id])->with(['message' => 'Ocurrió un error', 'alert-type' => 'error']);
         }
