@@ -10,4 +10,8 @@ class State extends Model
 {
     use HasFactory, SoftDeletes;
     protected $dates = ['deleted_at'];
+
+    public function provinces(){
+        return $this->hasMany(Province::class);
+    }
 }
