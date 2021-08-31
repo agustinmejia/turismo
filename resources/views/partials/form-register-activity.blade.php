@@ -48,7 +48,7 @@
         <select name="city_id" id="select-city_id" class="form-control">
         </select>
     </div>
-    <div class="col-md-12 div-extranjero">
+    <div class="col-md-12 div-extranjero" style="display: none">
         <label for="origin">Procedencia</label>
         <input type="text" class="form-control" name="origin" placeholder="Lugar de ingreso al país">
     </div>

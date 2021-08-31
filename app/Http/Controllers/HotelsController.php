@@ -15,6 +15,8 @@ use App\Models\Hotel;
 use App\Models\HotelsDetail;
 use App\Models\HotelsDocument;
 use App\Models\HotelsDetailsNacionality;
+use App\Models\Province;
+use App\Models\City;
 
 class HotelsController extends Controller
 {
@@ -276,6 +278,22 @@ class HotelsController extends Controller
                 'reason' => $request->reason
             ]);
 
+            if(!is_numeric($request->province_id)){
+                $province = Province::create([
+                    'state_id' => $request->state_id,
+                    'name' => $request->province_id
+                ]);
+                $request->province_id = $province->id;
+            }
+
+            if(!is_numeric($request->city_id)){
+                $city = City::create([
+                    'province_id' => $request->province_id,
+                    'name' => $request->city_id
+                ]);
+                $request->city_id = $city->id;
+            }
+
             HotelsDetailsNacionality::create([
                 'hotels_detail_id' => $detail->id,
                 'state_id' => $request->state_id,
@@ -288,7 +306,7 @@ class HotelsController extends Controller
             return redirect()->route($request->redirect, ['hotel' => $id])->with(['message' => 'Hotel registrado exitosamente', 'alert-type' => 'success']);
         } catch (\Throwable $th) {
             DB::rollback();
-            dd($th);
+            // dd($th);
             return redirect()->route($request->redirect, ['hotel' => $id])->with(['message' => 'Ocurrió un error', 'alert-type' => 'error']);
         }
     }
