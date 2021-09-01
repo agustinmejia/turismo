@@ -141,7 +141,6 @@
                     categories_list += `<option value="">Ninguna</option>`;
                 }
                 $('#select-hotels_category_id').html(categories_list);
-
             });
 
             @if($hotel)
