@@ -44,7 +44,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('hoteles/store/register', [HotelsController::class, 'store_register'])->name('hotels.store.register');
     Route::get('hoteles/{hotel}/registers', [HotelsController::class, 'register_detail'])->name('hotels.register.datail');
     Route::get('hoteles/register/detail/list/{id}', [HotelsController::class, 'register_detail_list']);
-    Route::post('hoteles/{id}/registers/store', [HotelsController::class, 'register_detail_store'])->name('hotels.register.detail.store');
+    Route::post('hoteles/{hotel}/registers/store', [HotelsController::class, 'register_detail_store'])->name('hotels.register.detail.store');
+    Route::post('hoteles/{hotel}/registers/update', [HotelsController::class, 'register_detail_update'])->name('hotels.register.detail.update');
+    Route::post('hoteles/registers/delete/{id}', [HotelsController::class, 'register_detail_delete']);
     Route::delete('hotels/{id}', [HotelsController::class, 'destroy'])->name('voyager.hotels.destroy');
 
 });

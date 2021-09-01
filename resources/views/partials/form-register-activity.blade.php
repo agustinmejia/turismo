@@ -9,7 +9,7 @@
     </div>
     <div class="col-md-6">
         <label for="reason">Motivo de viaje</label>
-        <select name="reason" id="select-reason" class="form-control" required>
+        <select name="reason" id="select-reason-{{ $type }}" class="form-control" required>
             <option value="Turismo">Turismo</option>
             <option value="Trabajo">Trabajo</option>
             @foreach (\App\Models\HotelsDetail::where('deleted_at', NULL)->whereRaw('reason != "Turismo" && reason != "Trabajo"')->groupBy('reason')->get() as $item)
@@ -23,7 +23,7 @@
     </div>
     <div class="col-md-6">
         <label for="country_id">País de procedencia</label>
-        <select name="country_id" id="select-country_id" class="form-control select2">
+        <select name="country_id" id="select-country_id-{{ $type }}" class="form-control">
         @foreach (\App\Models\Country::where('deleted_at', NULL)->get() as $item)
             <option value="{{ $item->id }}">{{ $item->name }}</option>
         @endforeach
@@ -31,7 +31,7 @@
     </div>
     <div class="col-md-6 div-nacional">
         <label for="state_id">Departamento</label>
-        <select name="state_id" id="select-state_id" class="form-control select2">
+        <select name="state_id" id="select-state_id-{{ $type }}" class="form-control select2">
             <option value="">--Selecciona el departamento--</option>
         @foreach (\App\Models\State::with('provinces.cities')->where('deleted_at', NULL)->get() as $item)
             <option value="{{ $item->id }}" data-provinces="{{ $item->provinces }}">{{ $item->name }}</option>
@@ -40,12 +40,12 @@
     </div>
     <div class="col-md-6 div-nacional">
         <label for="province_id">Provincia</label>
-        <select name="province_id" id="select-province_id" class="form-control">
+        <select name="province_id" id="select-province_id-{{ $type }}" class="form-control">
         </select>
     </div>
     <div class="col-md-12 div-nacional">
         <label for="city_id">Ciudad</label>
-        <select name="city_id" id="select-city_id" class="form-control">
+        <select name="city_id" id="select-city_id-{{ $type }}" class="form-control">
         </select>
     </div>
     <div class="col-md-12 div-extranjero" style="display: none">
@@ -97,12 +97,13 @@
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function(){
-        inicializar_select2('reason');
+        inicializar_select2('reason-{{ $type }}');
+        inicializar_select2('country_id-{{ $type }}');
 
         var provinces_country = [];
 
-        $('#select-state_id').change(function(){
-            let provinces = $('#select-state_id option:selected').data('provinces');
+        $('#select-state_id-{{ $type }}').change(function(){
+            let provinces = $('#select-state_id-{{ $type }} option:selected').data('provinces');
             let provinces_list = '<option value="">--Selecciona la privincia--</option>';
             if(provinces.length){
                 provinces_country = provinces; 
@@ -112,13 +113,13 @@
             }else{
                 provinces_list += `<option value="">Ninguna</option>`;
             }
-            $('#select-province_id').html(provinces_list);
-            inicializar_select2('province_id');
+            $('#select-province_id-{{ $type }}').html(provinces_list);
+            inicializar_select2('province_id-{{ $type }}');
             $('#select-city_id').html('');
         });
 
-        $('#select-province_id').change(function(){
-            let id = $('#select-province_id option:selected').val();
+        $('#select-province_id-{{ $type }}').change(function(){
+            let id = $('#select-province_id-{{ $type }} option:selected').val();
             let cities = [];
             provinces_country.map(item => {
                 if(id == item.id){
@@ -134,12 +135,12 @@
             }else{
                 cities_list += `<option value="">Ninguna</option>`;
             }
-            $('#select-city_id').html(cities_list);
-            inicializar_select2('city_id');
+            $('#select-city_id-{{ $type }}').html(cities_list);
+            inicializar_select2('city_id-{{ $type }}');
         });
 
-        $('#select-country_id').change(function(){
-            let id = $('#select-country_id option:selected').val();
+        $('#select-country_id-{{ $type }}').change(function(){
+            let id = $('#select-country_id-{{ $type }} option:selected').val();
             if(id == 1){
                 $('.div-nacional').fadeIn();
                 $('.div-extranjero').fadeOut();
@@ -149,25 +150,4 @@
             }
         });
     });
-
-    function inicializar_select2(id){
-        $(`#select-${id}`).select2({
-            tags: true,
-            createTag: function (params) {
-                return {
-                id: params.term,
-                text: params.term,
-                newOption: true
-                }
-            },
-            templateResult: function (data) {
-                var $result = $("<span></span>");
-                $result.text(data.text);
-                if (data.newOption) {
-                    $result.append(" <em>(ENTER para agregar)</em>");
-                }
-                return $result;
-            },
-        });
-    }
 </script>
