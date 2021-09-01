@@ -41,6 +41,7 @@ class PermissionsTableSeeder extends Seeder
         Permission::generateFor('hotels_groups');
         Permission::generateFor('hotels_categories');
         Permission::generateFor('hotels_types');
+        Permission::generateFor('hotels_types_groups');
         Permission::generateFor('hotels_rooms_types');
         Permission::generateFor('hotels_documents_types');
         Permission::generateFor('hotels_documents');
