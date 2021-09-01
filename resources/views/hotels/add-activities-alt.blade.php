@@ -37,7 +37,7 @@
     </div>
 
     {{-- Add modal --}}
-    <form action="{{ route('hotels.register.detail.store', ['id' => $id]) }}" method="POST">
+    <form action="{{ route('hotels.register.detail.store', ['hotel' => $id]) }}" method="POST">
         @csrf
         <input type="hidden" name="redirect" value="">
         <div class="modal modal-success fade" tabindex="-1" id="add-modal" role="dialog">
