@@ -1225,7 +1225,7 @@ class DataRowsTableSeeder extends Seeder
                 'data_type_id' => 12,
                 'field' => 'province_belongsto_state_relationship',
                 'type' => 'relationship',
-                'display_name' => 'Estado',
+                'display_name' => 'Departamento',
                 'required' => 1,
                 'browse' => 1,
                 'read' => 1,

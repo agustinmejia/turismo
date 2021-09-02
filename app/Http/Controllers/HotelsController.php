@@ -15,6 +15,7 @@ use App\Models\Hotel;
 use App\Models\HotelsDetail;
 use App\Models\HotelsDocument;
 use App\Models\HotelsDetailsNacionality;
+use App\Models\Country;
 use App\Models\Province;
 use App\Models\City;
 
@@ -244,7 +245,7 @@ class HotelsController extends Controller
     }
 
     public function register_detail_list($id){
-        $data = HotelsDetail::with(['country', 'hotel' => function($q){
+        $data = HotelsDetail::with(['country', 'nacionality', 'hotel' => function($q){
                     $q->where('user_id', Auth::user()->id);
                 }])->where('deleted_at', NULL)->where('hotel_id', $id)->get();
 
@@ -254,7 +255,18 @@ class HotelsController extends Controller
             ->addColumn('country', function($row){
                 return $row->country->name;
             })
-            ->rawColumns(['country'])
+            ->addColumn('actions', function($row){
+                $onclick = "onclick='edit(".json_encode($row).")'";
+                return '<div class="no-sort no-click bread-actions text-right">
+                            <a href="#" '.$onclick.' data-toggle="modal" data-target="#update_activity-modal" title="Editar" class="btn btn-sm btn-info">
+                                <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm">Editar</span>
+                            </a>
+                            <button title="Anular" class="btn btn-sm btn-danger delete" data-toggle="modal" data-target="#delete_modal" onclick="deleteItem('."'".url("admin/hoteles/registers/delete/".$row->id)."'".')">
+                                <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm">Anular</span>
+                            </button>
+                        </div>';
+            })
+            ->rawColumns(['country', 'actions'])
             ->make(true);
     }
 
@@ -262,9 +274,16 @@ class HotelsController extends Controller
         // dd($request);
         DB::beginTransaction();
         try {
-            $hotel = Hotel::findOrFail($id);
+
+            if($request->country_id && !is_numeric($request->country_id)){
+                $country = Country::create([
+                    'name' => $request->country_id
+                ]);
+                $request->country_id = $country->id;
+            }
+
             $detail = HotelsDetail::create([
-                'hotel_id' => $hotel->id,
+                'hotel_id' => $id,
                 'country_id' => $request->country_id,
                 'full_name' => $request->full_name,
                 'ci' => $request->ci,
@@ -278,7 +297,7 @@ class HotelsController extends Controller
                 'reason' => $request->reason
             ]);
 
-            if(!is_numeric($request->province_id)){
+            if($request->province_id && !is_numeric($request->province_id)){
                 $province = Province::create([
                     'state_id' => $request->state_id,
                     'name' => $request->province_id
@@ -286,7 +305,7 @@ class HotelsController extends Controller
                 $request->province_id = $province->id;
             }
 
-            if(!is_numeric($request->city_id)){
+            if($request->city_id && !is_numeric($request->city_id)){
                 $city = City::create([
                     'province_id' => $request->province_id,
                     'name' => $request->city_id
@@ -295,7 +314,7 @@ class HotelsController extends Controller
             }
 
             HotelsDetailsNacionality::create([
-                'hotels_detail_id' => $detail->id,
+                'hotels_detail_id' => $request->id,
                 'state_id' => $request->state_id,
                 'province_id' => $request->province_id,
                 'city_id' => $request->city_id,
@@ -303,11 +322,89 @@ class HotelsController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route($request->redirect, ['hotel' => $id])->with(['message' => 'Hotel registrado exitosamente', 'alert-type' => 'success']);
+            return redirect()->route($request->redirect, ['hotel' => $id])->with(['message' => 'Registro de huesped registrado exitosamente', 'alert-type' => 'success']);
         } catch (\Throwable $th) {
             DB::rollback();
             // dd($th);
             return redirect()->route($request->redirect, ['hotel' => $id])->with(['message' => 'Ocurrió un error', 'alert-type' => 'error']);
+        }
+    }
+
+    public function register_detail_update($id, Request $request){
+        // dd($request);
+        DB::beginTransaction();
+        try {
+
+            if($request->country_id && !is_numeric($request->country_id)){
+                $country = Country::create([
+                    'name' => $request->country_id
+                ]);
+                $request->country_id = $country->id;
+            }
+
+            $detail = HotelsDetail::where('id', $request->id)->update([
+                'country_id' => $request->country_id,
+                'full_name' => $request->full_name,
+                'ci' => $request->ci,
+                'room_number' => $request->room_number,
+                'age' => $request->age,
+                'gender' => $request->gender,
+                'marital_status' => $request->marital_status,
+                'job' => $request->job,
+                'start' => $request->start,
+                'finish' => $request->finish,
+                'reason' => $request->reason
+            ]);
+
+            if($request->province_id && !is_numeric($request->province_id)){
+                $province = Province::create([
+                    'state_id' => $request->state_id,
+                    'name' => $request->province_id
+                ]);
+                $request->province_id = $province->id;
+            }
+
+            if($request->city_id && !is_numeric($request->city_id)){
+                $city = City::create([
+                    'province_id' => $request->province_id,
+                    'name' => $request->city_id
+                ]);
+                $request->city_id = $city->id;
+            }
+
+            HotelsDetailsNacionality::where('hotels_detail_id', $request->id)->update([
+                'state_id' => $request->state_id,
+                'province_id' => $request->province_id,
+                'city_id' => $request->city_id,
+                'origin' => $request->origin
+            ]);
+
+            DB::commit();
+            return redirect()->route($request->redirect, ['hotel' => $id])->with(['message' => 'Registro de huesped editado exitosamente', 'alert-type' => 'success']);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            dd($th);
+            return redirect()->route($request->redirect, ['hotel' => $id])->with(['message' => 'Ocurrió un error', 'alert-type' => 'error']);
+        }
+    }
+
+    public function register_detail_delete($id, Request $request){
+        DB::beginTransaction();
+        try {
+            HotelsDetail::where('id', $id)->update([
+                'deleted_at' => Carbon::now()
+            ]);
+
+            HotelsDetailsNacionality::where('hotels_detail_id', $id)->update([
+                'deleted_at' => Carbon::now()
+            ]);
+
+            DB::commit();
+            return redirect()->route($request->redirect, ['hotel' => $request->hotel_id])->with(['message' => 'Registro de huesped eliminado exitosamente', 'alert-type' => 'success']);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            dd($th);
+            return redirect()->route($request->redirect, ['hotel' => $request->hotel_id])->with(['message' => 'Ocurrió un error', 'alert-type' => 'error']);
         }
     }
 }

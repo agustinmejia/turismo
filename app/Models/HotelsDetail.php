@@ -22,4 +22,8 @@ class HotelsDetail extends Model
     public function hotel(){
         return $this->belongsTo(Hotel::class, 'hotel_id');
     }
+
+    public function nacionality(){
+        return $this->hasOne(HotelsDetailsNacionality::class);
+    }
 }

@@ -15,7 +15,7 @@
             </h1>
         </div>
         <div class="col-md-6 text-right" style="margin-top: 30px">
-            <button data-toggle="modal" data-target="#add-activity-modal" class="btn btn-success"><i class="voyager-plus"></i> Añadir</button>
+            <button data-toggle="modal" data-target="#add_activity-modal" class="btn btn-success"><i class="voyager-plus"></i> Añadir</button>
             <button data-toggle="modal" data-target="#generate_report-modal" class="btn btn-danger"><i class="voyager-list"></i> Generar informe</button>
         </div>
     </div>
@@ -38,10 +38,10 @@
     </div>
 
     {{-- Add modal --}}
-    <form action="{{ route('hotels.register.detail.store', ['id' => $id]) }}" method="POST">
+    <form action="{{ route('hotels.register.detail.store', ['hotel' => $id]) }}" method="POST">
         @csrf
         <input type="hidden" name="redirect" value="hotels.activities">
-        <div class="modal modal-success fade" id="add-activity-modal" role="dialog">
+        <div class="modal modal-success fade" id="add_activity-modal" role="dialog">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -50,12 +50,38 @@
                     </div>
                     <div class="modal-body">
                         <div class="col-md-12">
-                            @include('partials.form-register-activity')
+                            @include('partials.form-register-activity', ['type' => 'add'])
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                         <input type="submit" class="btn btn-success" value="Sí, registrar">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    {{-- Add modal --}}
+    <form action="{{ route('hotels.register.detail.update', ['hotel' => $id]) }}" method="POST">
+        @csrf
+        <input type="hidden" name="redirect" value="hotels.activities">
+        <div class="modal modal-info fade" id="update_activity-modal" role="dialog">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><i class="voyager-edit"></i> Editar huesped</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <input type="hidden" name="id">
+                            @include('partials.form-register-activity', ['type' => 'edit'])
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <input type="submit" class="btn btn-info" value="Sí, registrar">
                     </div>
                 </div>
             </div>
@@ -85,6 +111,27 @@
             </div>
         </div>
     </form>
+
+    {{-- Single delete modal --}}
+    <div class="modal modal-danger fade" tabindex="-1" id="delete_modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><i class="voyager-trash"></i> Desea eliminar el siguiente registro?</h4>
+                </div>
+                <div class="modal-footer">
+                    <form action="#" id="delete_form" method="POST">
+                        <input type="hidden" name="hotel_id" value="{{ $id }}" >
+                        <input type="hidden" name="redirect" value="hotels.activities">
+                        {{ csrf_field() }}
+                        <input type="submit" class="btn btn-danger pull-right delete-confirm" value="Sí, eliminar">
+                    </form>
+                    <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('javascript')
@@ -102,10 +149,62 @@
                 // { data: 'job', title: 'Profesión/Ocupación' },
                 { data: 'start', title: 'Ingreso' },
                 { data: 'finish', title: 'Salida' },
-                // { data: 'action', title: 'Acciones', orderable: false, searchable: false },
+                { data: 'actions', title: 'Acciones', orderable: false, searchable: false },
             ]
             let id = "{{ $id }}";
             customDataTable("{{ url('admin/hoteles/register/detail/list') }}/"+id, columns);
         });
+
+        function edit(data){
+            // console.log(data)
+            $('#update_activity-modal input[name="id"]').val(data.id);
+            $('#update_activity-modal input[name="full_name"]').val(data.full_name);
+            $('#update_activity-modal input[name="ci"]').val(data.ci);
+            $('#update_activity-modal input[name="room_number"]').val(data.room_number);
+            $('#update_activity-modal input[name="age"]').val(data.age);
+            $('#update_activity-modal select[name="gender"]').val(data.gender);
+            $('#update_activity-modal select[name="marital_status"]').val(data.marital_status);
+            $('#update_activity-modal input[name="job"]').val(data.job);
+            $('#update_activity-modal input[name="start"]').val(data.start);
+            if (data.finish) {
+                $('#update_activity-modal input[name="finish"]').val(data.finish);
+            }
+
+            $('#select-reason-edit').val(data.reason).trigger('change');
+            $('#select-country_id-edit').val(data.country_id).trigger('change');
+            // Si es Boliviano set Departamento, Provincia y Ciudad
+            if(data.country_id == 1){
+                $('#select-state_id-edit').val(data.nacionality.state_id).trigger('change');
+                $('#select-province_id-edit').val(data.nacionality.province_id).trigger('change');
+                $('#select-city_id-edit').val(data.nacionality.city_id).trigger('change');
+            }else{
+                $('#update_activity-modal input[name="origin"]').val(data.nacionality.origin);
+            }            
+        }
+
+        function inicializar_select2(id){
+            $(`#select-${id}`).select2({
+                tags: true,
+                createTag: function (params) {
+                    return {
+                    id: params.term,
+                    text: params.term,
+                    newOption: true
+                    }
+                },
+                templateResult: function (data) {
+                    var $result = $("<span></span>");
+                    $result.text(data.text);
+                    if (data.newOption) {
+                        $result.append(" <em>(ENTER para agregar)</em>");
+                    }
+                    return $result;
+                },
+            });
+        }
+
+        function deleteItem(url){
+            $('#delete_form').attr('action', url);
+        }
     </script>
 @stop
