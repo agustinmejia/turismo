@@ -10,13 +10,13 @@
     <div class="row">
         <div class="col-md-6">
             <h1 class="page-title">
-                <i class="voyager-list"></i>
+                <i class="voyager-logbook"></i>
                 Actividades
             </h1>
         </div>
         <div class="col-md-6 text-right" style="margin-top: 30px">
             <button data-toggle="modal" data-target="#add_activity-modal" class="btn btn-success"><i class="voyager-plus"></i> Añadir</button>
-            <button data-toggle="modal" data-target="#generate_report-modal" class="btn btn-danger"><i class="voyager-list"></i> Generar informe</button>
+            <button data-toggle="modal" data-target="#generate_report-modal" class="btn btn-danger"><i class="voyager-documentation"></i> Generar informe</button>
         </div>
     </div>
 @stop

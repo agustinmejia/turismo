@@ -18,6 +18,10 @@ class Province extends Model
         return $this->hasMany(City::class);
     }
 
+    public function state(){
+        return $this->belongsTo(State::class, 'state_id');
+    }
+
     public function sluggable(): array
     {
         return [

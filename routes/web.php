@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 // Controllers
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HotelsController;
+use App\Http\Controllers\ReportsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('hoteles/{hotel}/registers/update', [HotelsController::class, 'register_detail_update'])->name('hotels.register.detail.update');
     Route::post('hoteles/registers/delete/{id}', [HotelsController::class, 'register_detail_delete']);
     Route::delete('hotels/{id}', [HotelsController::class, 'destroy'])->name('voyager.hotels.destroy');
+
+    Route::get('reportes/register_activities', [ReportsController::class, 'register_activities'])->name('reports.register_activities');
+    Route::post('reportes/register_activities', [ReportsController::class, 'register_activities_list'])->name('reports.register_activities.list');
+    Route::get('reportes/national_activities', [ReportsController::class, 'national_activities'])->name('reports.national_activities');
+    Route::post('reportes/national_activities', [ReportsController::class, 'national_activities_list'])->name('reports.national_activities.list');
 
 });
 

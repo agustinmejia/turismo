@@ -25,7 +25,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="panel-heading" style="border-bottom:0;">
-                                <h3 class="panel-title">Tipo</h3>
+                                <h3 class="panel-title">Categoría</h3>
                             </div>
                             <div class="panel-body" style="padding-top:0;">
                                 <p>{{ $hotel->type->name }}</p>
@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="panel-heading" style="border-bottom:0;">
-                                <h3 class="panel-title">Categoría</h3>
+                                <h3 class="panel-title">Subcategoría</h3>
                             </div>
                             <div class="panel-body" style="padding-top:0;">
                                 <p>{{ $hotel->category->name }}</p>

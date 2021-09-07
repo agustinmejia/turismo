@@ -72,7 +72,7 @@
                                                     <td><label class="label label-{{ $type }}">{{ $item->status }}</label></td>
                                                     <td class="no-sort no-click bread-actions text-right">
                                                         <a href="{{ route('hotels.register.datail', ['name' => $item->slug]) }}" data-id="{{ $item->id }}" title="Agregar registro" class="btn btn-sm btn-dark btn-add-register">
-                                                            <i class="voyager-list"></i> <span class="hidden-xs hidden-sm">Administrar</span>
+                                                            <i class="voyager-logbook"></i> <span class="hidden-xs hidden-sm">Administrar</span>
                                                         </a>
                                                     </td>
                                                 </tr>

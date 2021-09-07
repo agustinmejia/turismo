@@ -13,7 +13,7 @@ class AddActivities extends AbstractAction
 
     public function getIcon()
     {
-        return 'voyager-list';
+        return 'voyager-logbook';
     }
 
     public function getPolicy()

@@ -45,5 +45,16 @@ class PermissionsTableSeeder extends Seeder
         Permission::generateFor('hotels_rooms_types');
         Permission::generateFor('hotels_documents_types');
         Permission::generateFor('hotels_documents');
+
+        $keys = [
+            'browse_reportesregister_activities'
+        ];
+
+        foreach ($keys as $key) {
+            Permission::firstOrCreate([
+                'key'        => $key,
+                'table_name' => 'reportes',
+            ]);
+        }
     }
 }
