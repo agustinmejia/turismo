@@ -29,7 +29,7 @@
                     <div class="panel-body" style="padding-bottom: 0px">
                         <div class="col-md-8"></div>
                         <div class="col-md-4">
-                            <form id="form-report" action="{{ route('reports.national_activities.list') }}" method="post">
+                            <form id="form-report" action="{{ route('reports.international_activities.list') }}" method="post">
                                 @csrf
                                 <div class="form-group">
                                     <label for="hotel_id">Prestador de sercvicios</label>

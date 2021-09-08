@@ -15,6 +15,9 @@
             </h1>
         </div>
         <div class="col-md-6 text-right" style="margin-top: 30px">
+            {{-- @if (!count($hotel->details)) --}}
+            <button data-toggle="modal" data-target="#store_empty-modal" class="btn btn-dark"><i class="voyager-code"></i> Día sin movimiento</button>
+            {{-- @endif --}}
             <button data-toggle="modal" data-target="#add_activity-modal" class="btn btn-success"><i class="voyager-plus"></i> Añadir</button>
             <button data-toggle="modal" data-target="#generate_report-modal" class="btn btn-danger"><i class="voyager-documentation"></i> Generar informe</button>
         </div>
@@ -106,6 +109,35 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                         <input type="submit" class="btn btn-danger" value="Sí, generar">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="{{ route('hotels.register.detail.empty.store', ['hotel' => $id]) }}" method="POST">
+        <div class="modal modal-primary fade" tabindex="-1" id="store_empty-modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"><i class="voyager-code"></i> Guardar día sin movimiento</h4>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="redirect" value="hotels.activities">
+                        @csrf
+                        <div class="form-group">
+                            <label for="date">Fecha</label>
+                            <input type="date" name="date" class="form-control" value="{{ date('Y-m-d') }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="observations">Observaciones</label>
+                            <textarea name="observations" class="form-control" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <input type="submit" class="btn btn-dark" value="Sí, guardar">
                     </div>
                 </div>
             </div>
