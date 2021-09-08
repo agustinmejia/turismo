@@ -18,6 +18,10 @@ class Country extends Model
         return $this->hasMany(State::class);
     }
 
+    public function detail(){
+        return $this->hasMany(HotelsDetail::class);
+    }
+
     public function sluggable(): array
     {
         return [

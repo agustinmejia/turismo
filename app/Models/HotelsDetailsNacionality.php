@@ -12,4 +12,8 @@ class HotelsDetailsNacionality extends Model
     protected $fillable = [
         'hotels_detail_id', 'state_id', 'province_id', 'city_id', 'origin'
     ];
+
+    public function detail(){
+        return $this->belongsTo(HotelsDetail::class, 'hotels_detail_id');
+    }
 }

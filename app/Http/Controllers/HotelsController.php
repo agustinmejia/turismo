@@ -18,6 +18,7 @@ use App\Models\HotelsDetailsNacionality;
 use App\Models\Country;
 use App\Models\Province;
 use App\Models\City;
+use App\Models\HotelsDetailsEmpty;
 
 class HotelsController extends Controller
 {
@@ -222,7 +223,10 @@ class HotelsController extends Controller
     }
 
     public function activities($id){
-        return view('hotels.add-activities', compact('id'));
+        $hotel = Hotel::with(['details' => function($q){
+            $q->where('deleted_at', NULL);
+        }])->where('id', $id)->first();
+        return view('hotels.add-activities', compact('id', 'hotel'));
     }
 
     public function activities_pdf($id, Request $request){
@@ -314,7 +318,7 @@ class HotelsController extends Controller
             }
 
             HotelsDetailsNacionality::create([
-                'hotels_detail_id' => $request->id,
+                'hotels_detail_id' => $detail->id,
                 'state_id' => $request->state_id,
                 'province_id' => $request->province_id,
                 'city_id' => $request->city_id,
@@ -322,7 +326,27 @@ class HotelsController extends Controller
             ]);
 
             DB::commit();
-            return redirect()->route($request->redirect, ['hotel' => $id])->with(['message' => 'Registro de huesped registrado exitosamente', 'alert-type' => 'success']);
+            return redirect()->route($request->redirect, ['hotel' => $id])->with(['message' => 'Registro de huesped guardado exitosamente', 'alert-type' => 'success']);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            // dd($th);
+            return redirect()->route($request->redirect, ['hotel' => $id])->with(['message' => 'Ocurrió un error', 'alert-type' => 'error']);
+        }
+    }
+
+    public function register_detail_empty_store($id, Request $request){
+        DB::beginTransaction();
+        try {
+
+            HotelsDetailsEmpty::create([
+                'hotel_id' => $id,
+                'user_id' => Auth::user()->id,
+                'date' => $request->date,
+                'observations' => $request->observations
+            ]);
+
+            DB::commit();
+            return redirect()->route($request->redirect, ['hotel' => $id])->with(['message' => 'Registro sin movimiento guardado exitosamente', 'alert-type' => 'success']);
         } catch (\Throwable $th) {
             DB::rollback();
             // dd($th);

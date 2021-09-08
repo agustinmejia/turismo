@@ -1,5 +1,5 @@
 <div class="panel panel-bordered">
-    <div class="panel-body" style="padding-top: 0px">
+    <div class="panel-body">
         <div class="col-md-12">
             <table class="table table-bordered">
                 <thead>
@@ -14,14 +14,20 @@
                         $cont = 1;
                     @endphp
                     @forelse ($activities as $item)
-                        <tr @if (!count($item->details)) style="background-color: rgba(185,0,0,0.2)" @endif>
+                        <tr @if (!count($item->details) && !count($item->details_empties)) style="background-color: rgba(185,0,0,0.2)" @endif>
                             <td>{{ $cont }}</td>
                             <td>
                                 <span data-info='@json($item)' data-toggle="modal" data-target="#info-modal" class="label-data">
                                     {{ $item->name }} <br> <small>{{ $item->type ? $item->type->name : '' }} {{ $item->category ? $item->category->name : '' }}</small>
                                 </span>
                             </td>
-                            <td align="right">{{ count($item->details) }}</td>
+                            <td align="right">
+                                @if (!count($item->details_empties))
+                                    {{ count($item->details) }}
+                                @else
+                                    Sin movimiento
+                                @endif
+                            </td>
                         </tr>
                         @php
                             $cont++;

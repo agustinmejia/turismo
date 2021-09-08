@@ -45,6 +45,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('hoteles/store/register', [HotelsController::class, 'store_register'])->name('hotels.store.register');
     Route::get('hoteles/{hotel}/registers', [HotelsController::class, 'register_detail'])->name('hotels.register.datail');
     Route::get('hoteles/register/detail/list/{id}', [HotelsController::class, 'register_detail_list']);
+    Route::post('hoteles/{hotel}/registers/empty/store', [HotelsController::class, 'register_detail_empty_store'])->name('hotels.register.detail.empty.store');
     Route::post('hoteles/{hotel}/registers/store', [HotelsController::class, 'register_detail_store'])->name('hotels.register.detail.store');
     Route::post('hoteles/{hotel}/registers/update', [HotelsController::class, 'register_detail_update'])->name('hotels.register.detail.update');
     Route::post('hoteles/registers/delete/{id}', [HotelsController::class, 'register_detail_delete']);
@@ -54,6 +55,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::post('reportes/register_activities', [ReportsController::class, 'register_activities_list'])->name('reports.register_activities.list');
     Route::get('reportes/national_activities', [ReportsController::class, 'national_activities'])->name('reports.national_activities');
     Route::post('reportes/national_activities', [ReportsController::class, 'national_activities_list'])->name('reports.national_activities.list');
+    Route::get('reportes/international_activities', [ReportsController::class, 'international_activities'])->name('reports.international_activities');
+    Route::post('reportes/international_activities', [ReportsController::class, 'international_activities_list'])->name('reports.international_activities.list');
 
 });
 

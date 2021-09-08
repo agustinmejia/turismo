@@ -48,4 +48,8 @@ class Hotel extends Model
     public function details(){
         return $this->hasMany(HotelsDetail::class);
     }
+
+    public function details_empties(){
+        return $this->hasMany(HotelsDetailsEmpty::class);
+    }
 }
