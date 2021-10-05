@@ -48,10 +48,12 @@ class ReportsController extends Controller
     }
 
     public function national_activities_list(Request $request){
+        $hotel_id = $request->hotel_id;
         $date = $request->year.'-'.$request->month;
-        $states = State::with(['registers.detail'])
-            ->where('deleted_at', NULL)->get();
-        // dd($states);
+        $states = State::with(['registers.detail'=> function($q)use($hotel_id){
+            $q->where('hotel_id', $hotel_id)->where('deleted_at', NULL);
+        }])
+        ->where('deleted_at', NULL)->get();
         return view('reports.national-activities-list', compact('states', 'date'));
     }
 
@@ -61,10 +63,12 @@ class ReportsController extends Controller
     }
 
     public function international_activities_list(Request $request){
+        $hotel_id = $request->hotel_id;
         $date = $request->year.'-'.$request->month;
-        $countries = Country::with(['detail'])
-            ->where('deleted_at', NULL)->get();
-        // dd($countries);
+        $countries = Country::with(['detail'=> function($q)use($hotel_id){
+            $q->where('hotel_id', $hotel_id)->where('deleted_at', NULL);
+        }])
+        ->where('deleted_at', NULL)->get();
         return view('reports.international-activities-list', compact('countries', 'date'));
     }
 
