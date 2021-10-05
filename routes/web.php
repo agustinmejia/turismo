@@ -58,6 +58,10 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('reportes/international_activities', [ReportsController::class, 'international_activities'])->name('reports.international_activities');
     Route::post('reportes/international_activities', [ReportsController::class, 'international_activities_list'])->name('reports.international_activities.list');
 
+    // Exportar a excel
+    Route::get('export/hotels', [ReportsController::class, 'export_hotels'])->name('export.hotels');
+    Route::get('export/hotels/details', [ReportsController::class, 'export_hotels_details'])->name('export.hotels.details');
+
 });
 
 // Clear cache

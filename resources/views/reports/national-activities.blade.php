@@ -29,8 +29,9 @@
                     <div class="panel-body" style="padding-bottom: 0px">
                         <div class="col-md-8"></div>
                         <div class="col-md-4">
-                            <form id="form-report" action="{{ route('reports.national_activities.list') }}" method="post">
+                            <form name="form_report" id="form-report" action="{{ route('reports.national_activities.list') }}" method="post">
                                 @csrf
+                                <input type="hidden" name="type" value="none">
                                 <div class="form-group">
                                     <label for="hotel_id">Prestador de sercvicios</label>
                                     <select name="hotel_id" class="form-control select2" required>
@@ -94,5 +95,12 @@
                 })
             });
         });
+
+        function exportList(){
+            $('#form-report').attr('target', '_blank');
+            $('#form-report').attr('target', '_blank');
+            window.form_report.submit();
+            $('#form-report').removeAttr('target');
+        }
     </script>
 @stop
