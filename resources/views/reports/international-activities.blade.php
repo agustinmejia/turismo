@@ -1,13 +1,13 @@
 @extends('voyager::master')
 
-@section('page_title', 'Estadísticas nacionales')
+@section('page_title', 'Estadísticas internacionales')
 
 @section('page_header')
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
                 <h1 class="page-title">
-                    <i class="voyager-pie-chart"></i> Estadísticas nacionales
+                    <i class="voyager-world"></i> Estadísticas internacionales
                 </h1>
                 {{-- <a href="#" class="btn btn-success btn-add-new">
                     <i class="voyager-plus"></i> <span>Crear</span>
