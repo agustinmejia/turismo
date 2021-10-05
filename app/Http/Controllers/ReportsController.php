@@ -6,10 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 use \App\Models\Hotel;
 use \App\Models\Country;
 use \App\Models\State;
+
+// Export
+use App\Exports\HotelsExport;
+use App\Exports\HotelsDetailsExport;
 
 class ReportsController extends Controller
 {
@@ -61,5 +66,15 @@ class ReportsController extends Controller
             ->where('deleted_at', NULL)->get();
         // dd($countries);
         return view('reports.international-activities-list', compact('countries', 'date'));
+    }
+
+    // ======================Export excel======================
+
+    public function export_hotels(){
+        return Excel::download(new HotelsExport, 'Prestadores de servicio.xlsx');
+    }
+
+    public function export_hotels_details(){
+        return Excel::download(new HotelsDetailsExport, 'Registro de huespedes.xlsx');
     }
 }

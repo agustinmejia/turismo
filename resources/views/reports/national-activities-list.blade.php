@@ -1,5 +1,8 @@
 <div class="panel panel-bordered">
     <div class="panel-body">
+        {{-- <div class="col-md-12 text-right">
+            <button type="button" onclick="exportList()" class="btn btn-danger">Imprimir <i class="glyphicon glyphicon-print"></i></button>
+        </div> --}}
         <div class="col-md-12">
             <p>NÚMERO DE LLEGADAS (I) Y PERNOCTACIONES (P) SEGÚN DEPARTAMENTO DE RESIDENCIA</p>
             <table class="table table-bordered">
